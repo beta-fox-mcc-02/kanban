@@ -24,5 +24,8 @@
     "pg": "^7.18.1",
     "sequelize": "^5.21.4",
     "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
