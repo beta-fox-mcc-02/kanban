@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
   class Task extends Model {
     static associate (models) {
-
+      Task.belongsTo(models.User)
     }
   }
 
@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     category: DataTypes.STRING,
     description: DataTypes.STRING,
-    assignee: DataTypes.STRING
+    UserId: DataTypes.INTEGER
   }, {
     sequelize
   })
 
-  return Task
-}
+  return Task;
+};
