@@ -11,10 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       validate: {
-        isEmail: {
-          args: true,
-          message: 'Email format is wrong'
-        },
+        isEmail: true,
         notEmpty: {
           args: true,
           message: 'Email can not be empty'
@@ -38,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   })
-  
+
   User.associate = function(models) {
     // associations can be defined here
   };
