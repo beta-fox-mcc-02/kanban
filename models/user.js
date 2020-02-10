@@ -1,8 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Models = sequelize.Sequelize.models;
+  const Model = sequelize.Sequelize.Model;
 
-  class User extends Models{}
+  class User extends Model{}
 
   User.init({
     email: {
