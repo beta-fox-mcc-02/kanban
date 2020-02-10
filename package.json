@@ -1,0 +1,32 @@
+{
+  "name": "kanban",
+  "version": "1.0.0",
+  "description": "Nama database wajib: kanban-beta-fox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "NODE_ENV=development nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hendrywu1984/kanban.git"
+  },
+  "keywords": [],
+  "author": "Hendry Gunawan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hendrywu1984/kanban/issues"
+  },
+  "homepage": "https://github.com/hendrywu1984/kanban#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^7.18.1",
+    "sequelize": "^5.21.4",
+    "sequelize-cli": "^5.5.1"
+  }
+}
