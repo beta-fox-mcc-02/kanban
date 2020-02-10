@@ -10,6 +10,7 @@ app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('KANBAN API')
+    console.log(process.env.DATABASE_URL)
     
     // User.findAll()
     //     .then(response => {
