@@ -6,9 +6,36 @@ module.exports = (sequelize, DataTypes) => {
 
     Card.init(
         {
-            title: DataTypes.STRING,
-            ListId: DataTypes.INTEGER,
-            description: DataTypes.STRING
+            title: {
+                title: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isNull: {
+                        args: false,
+                        msg: `Title can't be blank`
+                    }
+                }
+            },
+            ListId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    isNull: {
+                        args: false,
+                        msg: `ListId can't be blank`
+                    }
+                }
+            },
+            description: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isNull: {
+                        args: false,
+                        msg: `Description can't be blank`
+                    }
+                }
+            }
         },
         { sequelize }
     )

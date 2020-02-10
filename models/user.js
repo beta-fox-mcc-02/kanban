@@ -6,9 +6,40 @@ module.exports = (sequelize, DataTypes) => {
 
     User.init(
         {
-            name: DataTypes.STRING,
-            email: DataTypes.STRING,
-            password: DataTypes.STRING
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isNull: {
+                        args: false,
+                        msg: `Name can't be blank`
+                    }
+                }
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isNull: {
+                        args: false,
+                        msg: `Email can't be blank`
+                    },
+                    isEmail: {
+                        args: true,
+                        msg: 'Email incorrect'
+                    }
+                }
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isNull: {
+                        args: false,
+                        msg: `Password can't be blank`
+                    }
+                }
+            }
         },
         { sequelize }
     )

@@ -6,8 +6,26 @@ module.exports = (sequelize, DataTypes) => {
 
     List.init(
         {
-            title: DataTypes.STRING,
-            BoardId: DataTypes.INTEGER
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isNull: {
+                        args: false,
+                        msg: `Title can't be blank`
+                    }
+                }
+            },
+            BoardId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    isNull: {
+                        args: false,
+                        msg: `Title can't be blank`
+                    }
+                }
+            }
         },
         { sequelize }
     )
