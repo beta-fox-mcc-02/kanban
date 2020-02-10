@@ -1,0 +1,28 @@
+{
+  "name": "kanban",
+  "version": "1.0.0",
+  "description": "Nama database wajib: kanban-beta-fox",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uulwake/kanban.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uulwake/kanban/issues"
+  },
+  "homepage": "https://github.com/uulwake/kanban#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^7.18.1",
+    "sequelize": "^5.21.4"
+  }
+}
