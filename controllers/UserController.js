@@ -9,9 +9,10 @@ class Controller {
         })
             .then(token => {
                 console.log(token)
+                res.status(201).json(token)
             })
             .catch(err => {
-                console.log(err)
+                res.status(500).json(err);
             })
     }
 }
