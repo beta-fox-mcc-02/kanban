@@ -5,6 +5,7 @@ const { checkPassword } = require('../helpers/password')
 class UserController {
     static register(req, res, next) {
         const { first_name, last_name, email, password } = req.body
+        console.log(req.body)
         User.create({
             first_name, last_name, email, password
         })
