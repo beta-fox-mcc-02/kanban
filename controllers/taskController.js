@@ -40,8 +40,6 @@ class TaskController {
             })
             .catch(next)
     }
-
-    
 }
 
 module.exports = TaskController
