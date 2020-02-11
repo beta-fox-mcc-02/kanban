@@ -4,19 +4,7 @@ const BcryptPassword = require('../helpers/bcryptPassword.js')
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model{}
   User.init({
-    name: {
-      type: DataTypes.STRING,
-      validate: {
-        len: {
-          args: [5],
-          msg: `NAME TOO SHORT!`
-        },
-        isAlpha: {
-          args: true,
-          msg: `NAME IS NOT A WORD`
-        }
-      }
-    },
+    name: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
       isEmail: {
@@ -29,10 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks: {
       beforeCreate: (user, options) => {
+        if(!user.name) {
+          let indexOfAt = user.email.indexOf('@')
+          user.name = user.email.substring(0, indexOfAt)
+        }
         user.password = BcryptPassword.hashing(user.password)
-      },
-      afterFind: (user, options) => {
-        user.password = `--SECRET--`
       }
     }
   })
