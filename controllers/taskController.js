@@ -27,8 +27,21 @@ class TaskController {
             .catch(next)
     }
 
-    
+    static readTask (req, res, next) {
+        Task.findAll({
+            where: {
+                UserId: req.currentUserId
+            }, include: [User, Category]
+        })
+            .then(tasks => {
+                res.status(200).json({
+                    tasks
+                })
+            })
+            .catch(next)
+    }
 
+    
 }
 
 module.exports = TaskController

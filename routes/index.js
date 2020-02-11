@@ -11,5 +11,6 @@ router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 
 router.post('/tasks/add', authentication, TaskController.create)
+router.get('/tasks', authentication, TaskController.readTask)
 
 module.exports = router
