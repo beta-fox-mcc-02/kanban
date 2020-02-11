@@ -12,7 +12,10 @@ app.use(express.json());
 app.use(cors())
 
 app.get("/", (req, res, next) => {
-  res.send("Home page sementara")
+  res.status(200).json({
+    data: "Home",
+    msg: "masuk ke home page"
+  });
 });
 
 app.use(userRoute)
