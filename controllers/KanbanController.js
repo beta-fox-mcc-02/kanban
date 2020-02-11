@@ -20,7 +20,11 @@ class KanbanController {
       include: [Category]
     })
       .then(kanban => {
-        res.status(200).json({ data: kanban });
+        if (kanban[0].Category) {
+          res.status(200).json({ data: kanban });
+        } else {
+          next({ status: 400, message: 'Category does not exist' })
+        }
       })
       .catch(next)
   }
@@ -28,8 +32,17 @@ class KanbanController {
   static create(req, res, next) {
     const { title, CategoryId } = req.body;
     const UserId = req.currentUserId;
-    const data = { title, CategoryId, UserId }
-    Kanban.create(data)
+    const dataKanban = { title, CategoryId, UserId }
+    Category.findOne({
+      where: { id: CategoryId }
+    })
+      .then(data => {
+        if (data) {
+          return Kanban.create(dataKanban)
+        } else {
+          next({ status: 400, message: 'Category does not exist' })
+        }
+      })
       .then(data => {
         res.status(200).json({ message: 'Success create data' });
       })
@@ -40,10 +53,19 @@ class KanbanController {
     const { title, CategoryId } = req.body;
     const { id } = req.params;
     const UserId = req.currentUserId;
-    const data = { title, CategoryId, UserId };
-    Kanban.update(data, {
-      where: { id }
+    const dataKanban = { title, CategoryId, UserId };
+    Category.findOne({
+      where: { id: CategoryId }
     })
+      .then(data => {
+        if (data) {
+          return Kanban.update(dataKanban, {
+            where: { id }
+          })
+        } else {
+          next({ status: 400, message: 'Category does not exist' })
+        }
+      })
       .then(data => {
         res.status(200).json({ message: 'Success update data' });
       })
