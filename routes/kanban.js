@@ -8,7 +8,7 @@ const authorization = require('../middlewares/authorization');
 router.use(authentication);
 // router
 router.get('/', KanbanController.findAll);
-router.get('/:category', KanbanController.findByCategory);
+router.get('/:CategoryId', KanbanController.findByCategory);
 router.post('/', KanbanController.create);
 router.put('/:id', authorization, KanbanController.update);
 router.delete('/:id', authorization, KanbanController.destroy);

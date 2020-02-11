@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
           next({ name: 'Unauthorized' });
         }
       } else {
-        next({ status: 400, message: 'Task does not exist' });
+        next({ status: 400, message: 'Kanban task does not exist' });
       }
     })
     .catch(next)

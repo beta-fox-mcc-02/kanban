@@ -13,14 +13,11 @@ class KanbanController {
   }
 
   static findByCategory(req, res, next) {
-    const { category } = req.params;
+    const { CategoryId } = req.params;
     const UserId = req.currentUserId;
     Kanban.findAll({
-      where: { UserId },
-      include: [{
-        model: Category,
-        where: { name: category }
-      }]
+      where: { UserId, CategoryId },
+      include: [Category]
     })
       .then(kanban => {
         res.status(200).json({ data: kanban });
@@ -29,22 +26,10 @@ class KanbanController {
   }
 
   static create(req, res, next) {
-    const { title, category } = req.body;
+    const { title, CategoryId } = req.body;
     const UserId = req.currentUserId;
-    Category.findOne({
-      where: { name: category }
-    })
-      .then(data => {
-        if (data) {
-          const dataKanban = { title, CategoryId: data.id, UserId };
-          return Kanban.create(dataKanban)
-        } else {
-          next({
-            status: 400,
-            message: 'Category does not exist'
-          })
-        }
-      })
+    const data = { title, CategoryId, UserId }
+    Kanban.create(data)
       .then(data => {
         res.status(200).json({ message: 'Success create data' });
       })
@@ -52,25 +37,13 @@ class KanbanController {
   }
 
   static update(req, res, next) {
-    const { title, category } = req.body;
+    const { title, CategoryId } = req.body;
     const { id } = req.params;
     const UserId = req.currentUserId;
-    Category.findOne({
-      where: { name: category }
+    const data = { title, CategoryId, UserId };
+    Kanban.update(data, {
+      where: { id }
     })
-      .then(data => {
-        if (data) {
-          const dataKanban = { title, CategoryId: data.id, UserId };
-          return Kanban.update(dataKanban, {
-            where: { id }
-          });
-        } else {
-          next({
-            status: 400,
-            message: 'Category does not exist'
-          })
-        }
-      })
       .then(data => {
         res.status(200).json({ message: 'Success update data' });
       })

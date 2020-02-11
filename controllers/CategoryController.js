@@ -37,7 +37,7 @@ class CategoryController {
       where: { id }
     })
       .then(data => {
-        res.status(200).json({ message: 'Success update categort' })
+        res.status(200).json({ message: 'Success update category' })
       })
   }
 
