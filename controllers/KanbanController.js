@@ -36,7 +36,6 @@ class KanbanController {
     })
       .then(data => {
         if (data) {
-          console.log('DATA=>>', data);
           const dataKanban = { title, CategoryId: data.id, UserId };
           return Kanban.create(dataKanban)
         } else {
