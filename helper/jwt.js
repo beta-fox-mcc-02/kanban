@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const SECRET = 'SECRET'
+const SECRET = process.env.SECRET
 module.exports = {
     createToken: (email) => {
         return jwt.sign({ email }, SECRET)
