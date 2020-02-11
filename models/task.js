@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     CategoryId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
+  }, {
+    sequelize
   })
 
   return Task;
