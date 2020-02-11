@@ -1,9 +1,9 @@
 const { User } = require('../models')
-const { ErrorHandler } = require('../middlewares/errorHandler')
+
+const { comparePassword, createToken } = require('../helpers/auth')
 
 class UserController {
     static register(req, res, next) {
-        console.log(req.body)
         const { name, email, password } = req.body
 
         const user = {
@@ -11,7 +11,6 @@ class UserController {
             email,
             password
         }
-        console.log(user)
         User.create(user)
             .then(result => {
                 let data = {
@@ -20,7 +19,6 @@ class UserController {
                     email: result.email
                 }
                 res.status(201).json({ data })
-                next()
             })
             .catch(next)
     }
