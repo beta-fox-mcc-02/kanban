@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    isNull: {
+                    notNull: {
                         args: false,
                         msg: `Title can't be blank`
                     }
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 validate: {
-                    isNull: {
+                    notNull: {
                         args: false,
                         msg: `UserId can't be blank`
                     }
