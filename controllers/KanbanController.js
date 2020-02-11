@@ -1,4 +1,4 @@
-const { Kanban } = require('../models');
+const { Kanban, Category } = require('../models');
 
 class KanbanController {
   static findAll(req, res, next) {
@@ -16,7 +16,11 @@ class KanbanController {
     const { category } = req.params;
     const UserId = req.currentUserId;
     Kanban.findAll({
-      where: { category, UserId }
+      where: { UserId },
+      include: [{
+        model: Category,
+        where: { name: category }
+      }]
     })
       .then(kanban => {
         res.status(200).json({ data: kanban });
@@ -27,9 +31,14 @@ class KanbanController {
   static create(req, res, next) {
     const { title, category } = req.body;
     const UserId = req.currentUserId;
-    const data = { title, category, UserId };
-    Kanban.create(data)
-      .then(kanban => {
+    Category.findOne({
+      where: { name: category }
+    })
+      .then(data => {
+        const data = { title, CategoryId: data.id, UserId };
+        return Kanban.create(data)
+      })
+      .then(data => {
         res.status(200).json({ message: 'Success create data' });
       })
       .catch(next)
@@ -38,10 +47,16 @@ class KanbanController {
   static update(req, res, next) {
     const { title, category } = req.body;
     const { id } = req.params;
-    const data = { title, category };
-    Kanban.update(data, {
-      where: { id }
+    const UserId = req.currentUserId;
+    Category.findOne({
+      where: { name: category }
     })
+      .then(data => {
+        const data = { title, CategoryId: data.id, UserId };
+        return Kanban.update(data, {
+          where: { id }
+        });
+      })
       .then(data => {
         res.status(200).json({ message: 'Success update data' });
       })
