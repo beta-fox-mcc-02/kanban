@@ -12,29 +12,26 @@ class TaskController {
     Task
       .create(data)
       .then(task => {
-        res.status(201).json(data)
+        res.status(201).json(task)
       })
-      .catch(err=> {
-        res.status(500).json(err)
-      })
+      .catch(next)
   }
-
 
   static findAll (req, res, next) {
     Task
       .findAll({
         where: {
           UserId: req.currentUserId
-        }
+        },
+        order: [
+          ['id', 'ASC']
+        ]
       })
       .then(task => {
         res.status(200).json(task)
       })
-      .catch(err => {
-        res.status(500).json(err)
-      })
+      .catch(next)
   }
-
 
   static deleteTask (req, res, next) {
     Task
@@ -43,19 +40,13 @@ class TaskController {
           id: req.params.id
         }
       })
-      .then(data => {
-        if(data > 0) {
-          res.status(200).json({
-            msg: 'Delete Success !'
-          })
-        } else {
-          res.status(500).json({
-            msg: "Delete Failed !"
-          })
-        }
+      .then(() => {
+        res.status(200).json({
+          msg: 'Delete Success !'
+        })
       })
       .catch(err => {
-        res.status(500).json(err)
+        next(err)
       })
   }
   
@@ -66,15 +57,15 @@ class TaskController {
       },{
         where: {
           id: req.params.id
-        },
-        returning: true
+        }
+      })
+      .then( () => {
+        return Task.findByPk(req.params.id)
       })
       .then(task => {
         res.status(200).json(task)
       })
-      .catch(err => {
-        res.status(500).json(err)
-      })
+      .catch(next)
   }
 
   static updateTask (req, res, next) {
@@ -88,15 +79,15 @@ class TaskController {
       .update(data, {
         where: {
           id: req.params.id
-        },
-        returning: true
+        }
+      })
+      .then( () => {
+        return Task.findByPk(req.params.id)
       })
       .then(task => {
         res.status(200).json(task)
       })
-      .catch(err => {
-        res.status(500).json(err)
-      })
+      .catch(next)
   }
 }
 

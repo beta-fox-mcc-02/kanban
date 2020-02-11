@@ -28,18 +28,38 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate : {
+        notNull: {
+          args: true,
+          msg: 'Please enter your email'
+        },
         isEmail: {
           args: true,
           msg: 'Email Format Wrong !'
         }
       }
     },
-    password: DataTypes.STRING
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Please enter your password'
+        },
+        notNull: {
+          args: true,
+          msg: 'Please enter your password'
+        },
+        len: {
+          args: [5],
+          msg: 'Password length minimal 5'
+        }
+      }
+    }
   }, {
     sequelize,
     hooks: {
       beforeCreate: (user) => {
-        // Has di sini
         const hash = bcrypt.hashSync(user.password, SALT)
         user.password = hash
       }

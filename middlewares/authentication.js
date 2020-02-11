@@ -12,13 +12,11 @@ module.exports = (req, res, next) => {
       if(user) {
         next()
       } else {
-        res.status(401).json({
-          msg: 'You Must Sign In First !'
+        next({
+          name: 'AuthenticationError',
+          msg: 'You must sign up first !'
         })  
       }
     })
-    .catch(err => {
-      next(err)
-    })
-
+    .catch(next)
 }

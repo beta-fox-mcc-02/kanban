@@ -19,9 +19,7 @@ class UserController {
         }
         res.status(201).json(data)
       })
-      .catch(err => {
-        res.status(400).json(err)
-      })
+      .catch(next)
   }
 
   static signIn (req, res, next) {
@@ -45,19 +43,19 @@ class UserController {
               token
             })
           } else {
-            res.status(400).json({
+            next({
+              name: 'SignInError',
               msg: 'Email/Password Wrong !'
             })
           }
         } else {
-            res.status(400).json({
-              msg: 'Email/Password Wrong !'
-            })
+          next({
+            name: 'SignInError',
+            msg: 'Email/Password Wrong !'
+          })
         }
       })
-      .catch(err => {
-        res.status(500).json(err)
-      })
+      .catch(next)
   }
 }
 
