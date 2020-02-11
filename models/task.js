@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
 
   class Task extends Model {
     static associate (models) {
-      
+      Task.belongsTo(models.User)
+      Task.belongsTo(models.Category)
     }
   }
 
