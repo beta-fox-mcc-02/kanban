@@ -6,6 +6,7 @@ module.exports = function (req, res, next) {
     where: { id }
   })
     .then(data => {
+      console.log(data);
       if (data) {
         if (data.UserId === req.currentUserId) {
           next();
@@ -13,7 +14,7 @@ module.exports = function (req, res, next) {
           next({ name: 'Unauthorized' });
         }
       } else {
-        next({ name: 'Unauthorized' });
+        next({ status: 400, message: 'Task does not exist' });
       }
     })
     .catch(next)

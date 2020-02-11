@@ -35,8 +35,16 @@ class KanbanController {
       where: { name: category }
     })
       .then(data => {
-        const data = { title, CategoryId: data.id, UserId };
-        return Kanban.create(data)
+        if (data) {
+          console.log('DATA=>>', data);
+          const dataKanban = { title, CategoryId: data.id, UserId };
+          return Kanban.create(dataKanban)
+        } else {
+          next({
+            status: 400,
+            message: 'Category does not exist'
+          })
+        }
       })
       .then(data => {
         res.status(200).json({ message: 'Success create data' });
@@ -52,10 +60,17 @@ class KanbanController {
       where: { name: category }
     })
       .then(data => {
-        const data = { title, CategoryId: data.id, UserId };
-        return Kanban.update(data, {
-          where: { id }
-        });
+        if (data) {
+          const dataKanban = { title, CategoryId: data.id, UserId };
+          return Kanban.update(dataKanban, {
+            where: { id }
+          });
+        } else {
+          next({
+            status: 400,
+            message: 'Category does not exist'
+          })
+        }
       })
       .then(data => {
         res.status(200).json({ message: 'Success update data' });
