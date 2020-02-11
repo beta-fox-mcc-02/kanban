@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     Card.init(
         {
             title: {
-                title: DataTypes.STRING,
+                type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
                     isNull: {
