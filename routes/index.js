@@ -1,5 +1,9 @@
 const router = require('express').Router();
-const dummyRouter = require('./dummy');
+const registerRouter = require('./register');
+const loginRouter = require('./login');
 
-router.use('/dummy', dummyRouter);
+// router
+router.use('/register', registerRouter);
+router.use('/login', loginRouter);
+
 module.exports = router;
