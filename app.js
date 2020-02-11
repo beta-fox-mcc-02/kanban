@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/', routes )
-app.use(errorHandler)
+// app.use(errorHandler)
 
 app.listen(port, () => [
     console.log(`this app is running on port : ${port}`)
