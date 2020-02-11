@@ -10,7 +10,10 @@ app.use(
 );
 
 app.get("/", (req, res, next) => {
-  res.send("HOME PAGE");
+  res.status(200).json({
+    data: "Home",
+    msg: "masuk ke home page"
+  });
 });
 
 app.use(userRoute)
