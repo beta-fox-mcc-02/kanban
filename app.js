@@ -7,12 +7,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 
-const userRoute = require('./routes/UserRoute'); 
+const userRoute = require('./routes/user-route');
+const errorHandler = require('./middlewares/error-handler');
 
 app.get('/', (req, res) => {
     res.status(201).json('Hello World')
 })
 
 app.use(userRoute);
+app.use(errorHandler);
   
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
