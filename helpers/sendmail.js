@@ -1,8 +1,5 @@
-require('dotenv').config()
-// console.log(process.env.PASS)
-
-
-const mailer = (text) => {
+module.exports = (email, subject, message) => {
+  require('dotenv').config()
   const nodemailer = require('nodemailer')
 
   const transporter = nodemailer.createTransport({
@@ -17,9 +14,9 @@ const mailer = (text) => {
 
   const mailOptions = {
       from: 'password@nafies.tech',
-      to: 'ghuroba.muslim@gmail.com',
-      subject: 'Percobaan node mailer',
-      text
+      to: email,
+      subject,
+      html: message
   }
 
   transporter.sendMail(mailOptions, (err, info) => {
@@ -27,5 +24,3 @@ const mailer = (text) => {
       console.log('Email sent: ' + info.response);
   })
 }
-
-mailer('Percobaan send email using nodemailer')
