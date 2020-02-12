@@ -7,6 +7,8 @@ const errroHandler = (err, req, res, next) => {
         res.status(401).json(err.message)
     } else if(err.name === 'JsonWebTokenError') {
         res.status(401).json('login required')
+    } else if(err.name === 'NotFound') {
+        res.status(404).json(err.message)
     } else {
         res.status(500).json("internal server error, problem might be occured while some process are done")
     }

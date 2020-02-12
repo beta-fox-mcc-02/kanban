@@ -9,7 +9,17 @@ module.exports = (req, res, next) => {
             model: Organization,
             include: [{
                 model: Task,
-                include: [Category]
+                include: [Category, {
+                    model: User,
+                    attributes: {
+                    exclude: ['password']
+                }
+                }]
+            }, {
+                model: User,
+                attributes: {
+                    exclude: ['password']
+                }
             }]
         }]
     })

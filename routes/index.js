@@ -20,6 +20,12 @@ router.delete('/organization/:orgId', authorization, OrganizationController.dele
 router.post('/organization/:orgId/add/:username', authorization, OrganizationController.addMember)
 router.post('/organization/:orgId/task', authorization, TaskController.newTask)
 router.get('/organization/:orgId/task/:taskId', authorization, TaskController.getOneTask)
+router.patch('/organization/:orgId/task/:taskId', authorization, TaskController.updateCategoryTask)
+router.put('/organization/:orgId/task/:taskId', authorization, TaskController.updateTask)
+router.delete('/organization/:orgId/task/:taskId', authorization, TaskController.deleteTask)
+router.post('/organization/:orgId/task/:taskId/:userId', authorization, TaskController.assignMemberToTask)
+router.delete('/organization/:orgId/task/:taskId/:userId', authorization, TaskController.removeMemberFromTask)
+
 
 
 module.exports = router

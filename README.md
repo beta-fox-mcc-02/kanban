@@ -150,7 +150,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Body:** <br />
     ```
-    name        :string
+    name:string
     ```
 
 * **Success Response:**
@@ -275,7 +275,7 @@ Nama database wajib: kanban-beta-fox
             },
             "Tasks": []
         }
-    ]
+    ]j
     ```
  
 * **Error Response:**
@@ -478,7 +478,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Body:** <br />
     ```
-    name        :string
+    name:string
     ```
 
 * **Success Response:**
@@ -487,7 +487,7 @@ Nama database wajib: kanban-beta-fox
     **Content:** <br>
     ```javascript
     {
-        "success": "Organization has been updated"
+        "success": "Organization has updated successfully"
     }
     ```
  
@@ -542,7 +542,7 @@ Nama database wajib: kanban-beta-fox
     **Content:** <br>
     ```javascript
     {
-        "success": "Organization has been delete"
+        "success": "Organization has deleted successfully"
     }
     ```
  
@@ -706,6 +706,331 @@ Nama database wajib: kanban-beta-fox
               }
           }
       ]
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** <br>
+    ```javascript
+    "login required"
+    ```
+    OR
+    ```javascript
+    "authorized member only"
+    ```
+
+  * **Code:** 500 Internal Server Error <br />
+      **Content:** <br>
+      ```javascript
+      "internal server error, problem might be occured while some process are done"
+      ```
+
+**Assign One Member to the Task**
+----
+  Assign the member of the organization to the task.
+
+* **URL**
+
+  /organization/:orgId/task/:taskId/:userId
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+
+    `orgId=[integer]`
+
+    `taskId=[integer]`
+
+    `userId=[integer]`
+
+
+* **Data Params**
+
+  **Required:**
+
+  * **Header:** <br />
+    ```
+    access_token:integer(user's token)
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** <br>
+    ```javascript
+    {
+      "success": "Member has assigned to the task"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** <br>
+    ```javascript
+    "member has already assigned to the task"
+    ```
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** <br>
+    ```javascript
+    "login required"
+    ```
+    OR
+    ```javascript
+    "authorized member only"
+    ```
+
+  * **Code:** 500 Internal Server Error <br />
+      **Content:** <br>
+      ```javascript
+      "internal server error, problem might be occured while some process are done"
+      ```
+
+**Remove One Member from the Task**
+----
+  Remove the member of the organization from the task.
+
+* **URL**
+
+  /organization/:orgId/task/:taskId/:userId
+
+* **Method:**
+
+  `DELETE`
+  
+*  **URL Params**
+
+   **Required:**
+
+    `orgId=[integer]`
+
+    `taskId=[integer]`
+
+    `userId=[integer]`
+
+
+* **Data Params**
+
+  **Required:**
+
+  * **Header:** <br />
+    ```
+    access_token:integer(user's token)
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** <br>
+    ```javascript
+    {
+      "success": "Member has removed from the task"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** <br>
+    ```javascript
+    "login required"
+    ```
+    OR
+    ```javascript
+    "authorized member only"
+    ```
+
+  * **Code:** 500 Internal Server Error <br />
+      **Content:** <br>
+      ```javascript
+      "internal server error, problem might be occured while some process are done"
+      ```
+
+**Update Task**
+----
+  Update one task from one organization.
+
+* **URL**
+
+  /organization/:orgId/task/:taskId
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   **Required:**
+
+    `orgId=[integer]`
+
+    `taskId=[integer]`
+
+* **Data Params**
+
+  **Required:**
+
+  * **Header:** <br />
+    ```
+    access_token:integer(user's token)
+    ```
+
+  * **Body:** <br />
+    ```
+    title       :string,
+    description :string,
+    category_id :integer
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** <br>
+    ```javascript
+    {
+      "success": "Task has updated successfully"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** <br>
+    ```javascript
+    "task title required"
+    ```
+    OR
+    ```javascript
+    "only 4 categories available"
+    ```
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** <br>
+    ```javascript
+    "login required"
+    ```
+    OR
+    ```javascript
+    "authorized member only"
+    ```
+
+  * **Code:** 500 Internal Server Error <br />
+      **Content:** <br>
+      ```javascript
+      "internal server error, problem might be occured while some process are done"
+      ```
+
+**Update Task's Category**
+----
+  Update one task's category from one organization.
+
+* **URL**
+
+  /organization/:orgId/task/:taskId
+
+* **Method:**
+
+  `PATCH`
+  
+*  **URL Params**
+
+   **Required:**
+
+    `orgId=[integer]`
+
+    `taskId=[integer]`
+
+* **Data Params**
+
+  **Required:**
+
+  * **Header:** <br />
+    ```
+    access_token:integer(user's token)
+    ```
+
+  * **Body:** <br />
+    ```
+    category_id :integer
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** <br>
+    ```javascript
+    {
+      "success": "Category of the task has updated successfully"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** <br>
+    ```javascript
+    "only 4 categories available"
+    ```
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** <br>
+    ```javascript
+    "login required"
+    ```
+    OR
+    ```javascript
+    "authorized member only"
+    ```
+
+  * **Code:** 500 Internal Server Error <br />
+      **Content:** <br>
+      ```javascript
+      "internal server error, problem might be occured while some process are done"
+      ```
+
+**Delete Task**
+----
+  Delete task from the organization.
+
+* **URL**
+
+  /organization/:orgId/task/:taskId
+
+* **Method:**
+
+  `DELETE`
+  
+*  **URL Params**
+
+   **Required:**
+
+    `orgId=[integer]`
+
+    `taskId=[integer]`
+
+* **Data Params**
+
+  **Required:**
+
+  * **Header:** <br />
+    ```
+    access_token:integer(user's token)
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** <br>
+    ```javascript
+    {
+      "success": "Task has deleted successfully"
     }
     ```
  

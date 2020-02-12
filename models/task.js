@@ -25,7 +25,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     CategoryId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      validate: {
+        isIn: {
+          args: [["1","2","3","4"]],
+          msg: 'only 4 categories available'
+        }
+      }
     },
     OrganizationId: {
       type: DataTypes.INTEGER

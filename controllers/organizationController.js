@@ -128,7 +128,7 @@ class OrganizationController {
         })
             .then(result => {
                 res.status(200).json({
-                    success: `Organization has been updated`
+                    success: `Organization has updated successfully`
                 })
             })
             .catch(err => {
@@ -151,7 +151,7 @@ class OrganizationController {
             })
             .then(result => {
                 res.status(200).json({
-                    success: `Organization has been delete`
+                    success: `Organization has deleted successfully`
                 })
             })
             .catch(err => {
