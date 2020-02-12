@@ -25,6 +25,16 @@ class TaskController{
         })
         .catch((err) => next(err))
     }
+
+    static delete(req, res, next) {
+        Task.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(() => res.status(200).json({ msg: `Delete task on id ${req.params.id} success` }))
+        .catch((err) => next(err))
+    }
 }
 
 module.exports = TaskController
