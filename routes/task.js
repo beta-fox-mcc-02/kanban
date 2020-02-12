@@ -14,6 +14,6 @@ router.delete("/delete/:id", taskController.delete)
 
 router.get("/update/:id", taskController.findOne)
 
-router.put("/update/:id")
+router.put("/update/:id", taskController.update)
 
 module.exports = router
