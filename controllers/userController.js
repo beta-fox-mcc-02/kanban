@@ -1,7 +1,7 @@
 const {
     User
 } = require("../models")
-const bcrypt = require("../helpers/brcypt")
+const bcrypt = require("../helpers/bcrypt")
 const jwt = require("jsonwebtoken")
 const private_key = "secret"
 
