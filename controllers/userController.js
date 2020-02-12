@@ -17,6 +17,7 @@ class UserController {
     }
 
     static login(req, res, next) {
+        console.log('MASUK LOGIN CONTROLLER')
         let payload = {
             email : req.body.email,
             password : req.body.password
@@ -27,11 +28,17 @@ class UserController {
             }
         })
             .then(user => {
+                
                 if (user) {
                     let status = comparePassword(payload.password, user.password)
                     if (status) {
-                        let id = user.id
-                        let token = generateToken(id)
+                        let dataUser = {
+                            id: user.id,
+                            name: user.name,
+                            email: user.email
+                        }
+                        let token = generateToken(dataUser)
+                        console.log('DAPET TOKEN DI CONTROLLER LOGIN', token)
                         res.status(200).json({
                             access_token : token
                         })

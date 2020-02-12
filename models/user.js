@@ -5,9 +5,9 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
 
   class User extends Model {
-    static associate(models) {
-
-    }
+    // static associate(models) {
+    //   User.hasMany(models.Task)
+    // }
   }
 
   User.init({
@@ -59,6 +59,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   })
+
+  User.associate = function(models) {
+    User.hasMany(models.Task)
+  }
 
   return User;
 };
