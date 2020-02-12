@@ -5,7 +5,7 @@ const emailValidator = require('../helpers/emailValidation')
 module.exports = (req, res, next) => {
   emailValidator(req.body.email) 
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (data.ValidAddress) next()
       else next({msg: 'email is not valid. please use a valid email'})
     })
