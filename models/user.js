@@ -11,10 +11,13 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       validate: {
-        isEmail: true,
+        isEmail: {
+          args: true,
+          msg: 'Email format is invalid'
+        },
         notEmpty: {
           args: true,
-          message: 'Email can not be empty'
+          msg: 'Email can not be empty'
         }
       }
     },
@@ -23,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          message: 'Password can not be empty'
+          msg: 'Password can not be empty'
         }
       }
     }
@@ -38,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     // associations can be defined here
+    User.hasMany(models.Task, {foreignKey: 'id'});
   };
   return User;
 };
