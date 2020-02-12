@@ -39,12 +39,12 @@ class UserController{
             if(data) {
                 let isPassValid = BcryptPassword.comparing(req.body.password, data.password)
                 if(isPassValid) {
-                    let token = jwt.sign(data.email, 'private key')
-                    res.status(200).json({
-                        token,
+                    let payload = {
                         id: data.id,
-                        loggedin_user: data.name
-                    })
+                        email: data.email
+                    }
+                    let token = jwt.sign(payload, 'private key')
+                    res.status(200).json({ token })
                 }
                 else next(`INPUT INVALID`)
             }

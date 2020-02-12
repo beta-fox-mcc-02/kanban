@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: { len }
     },
-    category: DataTypes.STRING,
+    CategoryId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
     tag: DataTypes.STRING
   }, {
@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   Task.associate = function(models) {
     // associations can be defined here
     Task.belongsTo(models.User)
+    Task.belongsTo(models.Category)
   };
   return Task;
 };
