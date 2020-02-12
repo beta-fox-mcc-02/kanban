@@ -3,6 +3,20 @@ const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 const bcrypt = require('bcryptjs')
 class UserController {
+
+  static findAll (req, res, next) {
+    User
+      .findAll({
+        attributes: {
+          exclude: ['password']
+        }
+      })
+      .then(user => {
+        res.status(200).json(user)
+      })
+      .catch(next)
+  }
+
   static signUp (req, res, next) {
     let data = {
       name: req.body.name,

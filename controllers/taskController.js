@@ -7,7 +7,8 @@ class TaskController {
       title: req.body.title,
       description: req.body.description,
       category: req.body.category,
-      UserId: req.currentUserId
+      UserId: req.currentUserId,
+      ProjectId: req.body.ProjectId
     }
     Task
       .create(data)
@@ -21,7 +22,7 @@ class TaskController {
     Task
       .findAll({
         where: {
-          UserId: req.currentUserId
+          ProjectId: req.body.ProjectId
         },
         order: [
           ['id', 'ASC']
