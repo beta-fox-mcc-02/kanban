@@ -9,5 +9,8 @@ router.post('/', Task.createTask)
 
 router.use('/:id', authorization)
 router.get('/:id', Task.getOneTask)
+router.put('/:id', Task.updateTask)
+router.patch('/:id', Task.changeCategory)
+router.delete('/:id', Task.deleteTask)
 
 module.exports = router
