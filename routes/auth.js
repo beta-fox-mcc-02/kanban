@@ -4,5 +4,6 @@ const emailValidation = require('../middlewares/emailValidation')
 
 router.post('/register', emailValidation ,User.register)
 router.post('/login', User.login)
+router.post('/googleSign', User.googleSign)
 
 module.exports = router

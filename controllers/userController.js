@@ -2,6 +2,7 @@ const { User } = require('../models')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {OAuth2Client} = require('google-auth-library')
+const sendmail = require('../helpers/sendmail')
 
 class UserController {
   static register (req, res, next) {
@@ -15,7 +16,12 @@ class UserController {
       isVerified: false
     })
       .then(user => {
-        const token = jwt.sign({ id: user.id }, process.env.SECRET);
+        const token = jwt.sign({ id: user.id }, process.env.SECRET)
+        // sendmail({
+        //   email: user.email, 
+        //   subject: 'Register success', 
+        //   message: 'Your registration is success. Please login.'
+        // })
         res.status(201).json({
           msg: 'Register success',
           name: user.name,
