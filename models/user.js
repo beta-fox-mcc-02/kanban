@@ -64,12 +64,32 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Password minimal 6 characters'
         }
       }
+    },
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Firstname is required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Firstname is required'
+        },
+      }
+    },
+    last_name: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,
     hooks: {
       beforeCreate(user, options) {
         user.password = BcryptHelper.hashingPassword(user.password)
+        if (!user.last_name) {
+          user.last_name = user.first_name
+        }
       },
     }
   })
