@@ -6,6 +6,6 @@ module.exports = {
         return jwt.sign(dataUser, PRIVATKEY)
     },
     verifyToken: (token) => {
-        return jwt.verifyToken(token, PRIVATKEY)
+        return jwt.verify(token, PRIVATKEY)
     }
 }
