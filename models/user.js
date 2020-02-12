@@ -1,5 +1,6 @@
 'use strict';
-const BcryptPassword = require('../helpers/bcryptPassword.js')
+const { userCreate } = require('../helpers/hooksHelper.js')
+const { isEmail } = require('../helpers/validationHelper.js')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model{}
@@ -7,22 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
-      isEmail: {
-        args: true,
-        msg: `INVALID INPUT`
-      }
+      validate: { isEmail }
     },
     password: DataTypes.STRING
   }, {
     sequelize,
     hooks: {
-      beforeCreate: (user, options) => {
-        if(!user.name) {
-          let indexOfAt = user.email.indexOf('@')
-          user.name = user.email.substring(0, indexOfAt)
-        }
-        user.password = BcryptPassword.hashing(user.password)
-      }
+      beforeCreate: userCreate
     }
   })
   User.associate = function(models) {

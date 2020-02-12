@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const TaskController = require('../controllers/taskController.js')
 
-router.get('/show', TaskController.findAll)
+router.get('/findall', TaskController.findAll)
+router.post('/create', TaskController.create)
 
 module.exports = router

@@ -6,6 +6,13 @@ module.exports = (err, req, res, next) => {
         status = 400
         error.msg = err
     }
-    else if (err.name === 'SequelizeValidationError') error.msg = err.errors[0].message
+    else if (err.name === 'SequelizeValidationError') {
+        let containerErrors = []
+        err.errors.forEach(element => {
+            containerErrors.push(element.message)
+        });
+        error.msg = containerErrors
+        status = 400
+    }
     res.status(status).json(error)
 }
