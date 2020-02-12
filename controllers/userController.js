@@ -10,9 +10,14 @@ class UserController {
             password: req.body.password
         }
         User.create(input)
-            .then(user => [
-                res.status(201).json(user)
-            ])
+            .then(user => {
+                let result = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email
+                }
+                res.status(201).json(result)
+            })
             .catch(err => {
                 next(err)
             })

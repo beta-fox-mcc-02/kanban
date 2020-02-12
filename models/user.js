@@ -3,7 +3,12 @@ const {hashPassword} = require('../helpers/bcrypt')
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {
     static associate(models) {
-
+      User.belongsToMany(models.Organization, {
+        through: models.OrganizationMember
+      })
+      User.belongsToMany(models.Task, {
+        through: models.TaskUser
+      })
     }
   }
 
@@ -31,7 +36,10 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'email format required'
         }
       },
-      unique: true
+      unique: {
+        args: true,
+        msg: 'email has already existed'
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -40,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'password required'
+        },
+        len: {
+          args: [6],
+          msg: 'Minimum password length is 6 characters'
         }
       }
     }
