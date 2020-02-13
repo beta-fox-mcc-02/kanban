@@ -1,4 +1,4 @@
-const { Task } = require('../models')
+const { Task, Category } = require('../models')
 const { Op } = require('sequelize')
 
 class TaskController {
@@ -35,6 +35,27 @@ class TaskController {
       .catch(err => {
         next(err)
       })
+  }
+
+  static getTask(req, res, next) {
+    const id = +req.params.id
+    Task.findOne({
+      include: [Category],
+      where: {
+        [Op.and]: [
+          {
+            id
+          },
+          {
+            user_id: req.decoded
+          }
+        ]
+      }
+    })
+      .then(task => {
+        res.status(200).json(task)
+      })
+      .catch(next)
   }
 }
 
