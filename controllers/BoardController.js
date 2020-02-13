@@ -6,7 +6,7 @@ class BoardController {
 
         const board = {
             title,
-            UserId: req.jwtPayload.id
+            UserId: 3
         }
 
         Board.create(board)
@@ -17,7 +17,7 @@ class BoardController {
     }
 
     static findAll(req, res, next) {
-        const id = req.jwtPayload.id
+        const id = 3
         Board.findAll({ where: { UserId: id } })
             .then(data => {
                 res.status(200).json({ data })

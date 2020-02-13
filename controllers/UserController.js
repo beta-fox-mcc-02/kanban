@@ -13,12 +13,15 @@ class UserController {
         }
         User.create(user)
             .then(result => {
-                let data = {
+                const payload = {
                     id: result.id,
                     name: result.name,
                     email: result.email
                 }
-                res.status(201).json({ data })
+
+                const message = 'Successfully logged in.'
+                const token = createToken(payload)
+                res.status(200).json({ token, message })
             })
             .catch(next)
     }
@@ -33,6 +36,7 @@ class UserController {
                     if (isLogin) {
                         const payload = {
                             id: result.id,
+                            name: result.name,
                             email: result.email
                         }
                         const message = 'Successfully logged in.'
