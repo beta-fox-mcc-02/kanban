@@ -46,6 +46,7 @@ class ProjectController {
    }
 
    static update(req, res, next) {
+      
       Project.update({ title: req.body.title }, {
          where: {
             id: req.params.id
