@@ -1,15 +1,16 @@
-const { List, Card } = require('../models')
+const { Card } = require('../models')
 
-class ListController {
+class CardController {
     static create(req, res, next) {
-        const { title, BoardId } = req.body
+        const { title, description, ListId } = req.body
 
-        const list = {
+        const card = {
             title,
-            BoardId
+            description,
+            ListId
         }
 
-        List.create(list)
+        Card.create(card)
             .then(data => {
                 res.status(201).json({ data })
             })
@@ -17,15 +18,8 @@ class ListController {
     }
 
     static findAll(req, res, next) {
-        const { BoardId } = req.query
-        List.findAll({
-            where: { BoardId },
-            include: [
-                {
-                    model: Card
-                }
-            ]
-        })
+        const { ListId } = req.query
+        Card.findAll({ where: { ListId } })
             .then(data => {
                 res.status(200).json({ data })
             })
@@ -34,7 +28,7 @@ class ListController {
 
     static findOne(req, res, next) {
         const { id } = req.params
-        List.findOne({ where: { id } }).then(data => {
+        Card.findOne({ where: { id } }).then(data => {
             res.status(200).json({ data })
         })
     }
@@ -42,9 +36,9 @@ class ListController {
     static update(req, res, next) {
         const { id } = req.params
 
-        const { title } = req.body
+        const { title, description } = req.body
 
-        List.update({ title }, { where: { id }, returning: true })
+        Card.update({ title, description }, { where: { id }, returning: true })
             .then(result => {
                 const data = result[1][0]
                 res.status(200).json({ data })
@@ -55,7 +49,7 @@ class ListController {
     static delete(req, res, next) {
         const { id } = req.params
 
-        List.destroy({ where: { id } })
+        Card.destroy({ where: { id } })
             .then(data => {
                 res.status(200).json({ data })
             })
@@ -63,4 +57,4 @@ class ListController {
     }
 }
 
-module.exports = ListController
+module.exports = CardController

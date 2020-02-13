@@ -30,14 +30,7 @@ module.exports = (sequelize, DataTypes) => {
                 }
             },
             description: {
-                type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    notNull: {
-                        args: false,
-                        msg: `Description can't be blank`
-                    }
-                }
+                type: DataTypes.STRING
             }
         },
         { sequelize }
