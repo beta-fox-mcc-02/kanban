@@ -4,7 +4,6 @@ const { User } = require('../models')
 module.exports = (req, res, next) => {
     try{
         let decoded = verifyToken(req.headers.access_token)
-        let id = decoded.id
         User
             .findOne({
                 where: {
@@ -12,6 +11,7 @@ module.exports = (req, res, next) => {
                 }
             })
             .then(user => {
+                req.currentUserId = decoded.id
                 next()
             })
             .catch(next)

@@ -29,9 +29,11 @@ class UserController {
             })
             .then(user => {
                 if(checkPassword(loginUser.password, user.password) === true) {
-                    let token = generateToken(loginUser)
-                    req.currentUserId = user.Id
-                    console.log(req.currentUserId)
+                    let dataUser = {
+                        id: user.id,
+                        email: user.email
+                    }
+                    let token = generateToken(dataUser)
                     res.status(200).json({
                         access_token: token
                     })

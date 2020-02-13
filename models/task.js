@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class Task extends Model{
     static associate(models){
       Task.belongsTo(models.User)
-      // Task.belongsTo(models.Category)
+      Task.belongsTo(models.Category)
     }
   }
   Task.init({
@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     sequelize
+
   })
 
   return Task;

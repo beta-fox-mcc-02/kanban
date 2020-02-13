@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models){
       Category.hasMany(models.Task)
     }
+    
   }
   Category.init({
     status: DataTypes.STRING

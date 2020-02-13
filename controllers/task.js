@@ -1,10 +1,11 @@
-const { Task } = require('../models')
+const { Task, Category, User } = require('../models')
 
 class TaskController {
 
     static create(req, res, next){
         let {title, description} = req.body
         let inputTask = {title, description}
+        inputTask.UserId = req.currentUserId
 
         Task
             .create(inputTask)
@@ -20,14 +21,11 @@ class TaskController {
     }
 
     static findAll(req, res, next) {
-        let id = 1
-        let category = 2
         Task
             .findAll( { 
                 where : {
-                    UserId : id,
-                    CategoryId : category
-                }
+                    UserId : req.currentUserId
+                }, include: [ User, Category]
             })
             .then(tasks => {
                 res.status(200).json({
@@ -36,7 +34,7 @@ class TaskController {
                 })
             })
             .catch(err => {
-                console.log(err)
+                console.log(`masuk error`)
             })
     }
 

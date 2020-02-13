@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Task)
     }
   }
+  
   User.init({
     first_name: {
       type: DataTypes.STRING
