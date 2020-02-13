@@ -1,9 +1,13 @@
-const { User } = require('../models')
+const { User, Task } = require('../models')
 const { generateToken } = require('../helpers/jwt')
+const { comparePassword } = require('../helpers/bcrypt')
 
 class Controller {
     static fetchAll(req, res, next) {
-        User.findAll()
+        User.findAll({
+            include: [ Task ],
+            order: [['id', 'ASC']]
+        })
             .then(response => {
                 res.status(200).json({
                     msg: 'success fetch users',
@@ -15,7 +19,7 @@ class Controller {
             })
     }
 
-    static register(req, res, next) {
+    static signUp(req, res, next) {
         const { email, password } = req.body
         User.create({
             email: email,
@@ -35,8 +39,49 @@ class Controller {
                 })
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.name)
                 next(err)
+            })
+    }
+
+    static signIn(req, res, next) {
+        const { email, password } = req.body
+        
+        User.findOne({
+            where: {
+                email
+            }
+        })
+            .then(response => {
+                if (response) {
+                    const comparePw = comparePassword(password, response.password)
+                    if (comparePw) {
+                        const payload = {
+                            id: response.id,
+                            email: response.email
+                        }
+
+                        const token = generateToken(payload)
+                        
+                        res.status(200).json({
+                            msg: 'sign in success',
+                            token
+                        })
+                    } else {
+                        const err = {
+                            name: 'signInRequirementError'
+                        }
+                        next(err)
+                    }
+                } else {
+                    const err = {
+                        name: 'signInRequirementError'
+                    }
+                    next(err)
+                }
+            })
+            .catch(err => {
+              next(err)  
             })
     }
 }
