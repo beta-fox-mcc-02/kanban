@@ -1,5 +1,5 @@
 const { Task, Category, User } = require('../models')
-const jwt = require('jsonwebtoken')
+const { Op } = require('sequelize')
 
 class TaskController{
     static findAll(req, res, next) {
@@ -26,6 +26,36 @@ class TaskController{
             res.status(201).json({ msg: `Successfully added ${data.title}` })
         })
         .catch((err) => next(err))
+    }
+
+    static render_updateform(req, res, next) {
+        let updateReadyTask = ''
+        Task.findOne({
+            where: {
+                UserId: req.currentUserId,
+                id: req.params.id
+            }
+        })
+        .then(data => {
+            updateReadyTask = data
+            return Category.findAll({
+                where: {
+                    id: {
+                        [Op.not]: data.CategoryId
+                    }
+                },
+                attributes: ['name']
+            })
+        })
+        .then((data) => {
+            let categoryNames = []
+            data.forEach(el => {
+                categoryNames.push(el.name)
+            })
+            let packedData = { updateReadyTask, categoryNames }
+            res.status(200).json(packedData)
+        })
+        .catch(err => next(err))
     }
 
     static delete(req, res, next) {
