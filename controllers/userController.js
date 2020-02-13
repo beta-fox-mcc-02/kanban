@@ -126,6 +126,21 @@ class UserController {
         console.log(err)
       })
   }
+
+  static verifyAccount (req, res, next) {
+    const decoded = jwt.verify(req.params.token, process.env.SECRET)
+    User.findByPk(decoded.id)
+      .then(user => {
+        if (!user) return next({ msg: 'User not found', status: 'bad_request' })
+        if (!req.params.token === user.verifToken) return next({ msg: 'Token is invalid. Please request new token', status: 'bad_request' })
+        return User.update({ isVerified: true }, { where: { id: user.id } })
+      })
+      .then(result => {
+        if (result[0]) res.status(200).json({ msg: 'Account verified successfully'})
+        else next({ msg: 'Something is wrong when verify account' })
+      })
+      .catch(next)
+  }
 }
 
 module.exports = UserController
