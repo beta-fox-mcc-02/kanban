@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {OAuth2Client} = require('google-auth-library')
 const sendmail = require('../helpers/sendmail')
+const verifNumGenerator = require('../helpers/verifNumGenerator')
+const messageGenerator = require('../helpers/messageGenerator')
 
 class UserController {
   static register (req, res, next) {
@@ -16,12 +18,16 @@ class UserController {
       isVerified: false
     })
       .then(user => {
+        const verifNum = verifNumGenerator()
+        const verifToken = jwt.sign({ id: user.id, verifNum }, process.env.SECRET)
+        const message = messageGenerator({ status: 'verif', token: verifToken })
+        sendmail({
+          email: user.email,
+          subject: 'Register success, verify your email.', 
+          message
+        })
+        UserController.addVerifToken(verifToken, user.id)
         const token = jwt.sign({ id: user.id }, process.env.SECRET)
-        // sendmail({
-        //   email: user.email, 
-        //   subject: 'Register success', 
-        //   message: 'Your registration is success. Please login.'
-        // })
         res.status(201).json({
           msg: 'Register success',
           name: user.name,
@@ -86,7 +92,8 @@ class UserController {
           return User.create({
             name,
             email,
-            password: 'google-sign-password'
+            password: process.env.PASS_GSIGN,
+            isVerified: true
           })
         } else{
             status.msg = "user found"
@@ -101,6 +108,22 @@ class UserController {
       })
       .catch(err=>{
         next(err)
+      })
+  }
+
+  static addVerifToken (tokenData, id) {
+    console.log(id)
+    User.update({
+      verifToken: tokenData
+    }, {
+      where: { id }
+    })
+      .then(result => {
+        if (result[0]) console.log('Add Token into db succes')
+        else console.log('Something error')
+      })
+      .catch(err => {
+        console.log(err)
       })
   }
 }

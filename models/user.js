@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     password: DataTypes.STRING,
-    isVerified: DataTypes.BOOLEAN
+    isVerified: DataTypes.BOOLEAN,
+    verifToken: DataTypes.STRING
   }, {
     sequelize
   })

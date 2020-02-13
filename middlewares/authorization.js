@@ -10,10 +10,12 @@ module.exports = (req, res, next) => {
     }]
   })
     .then(task => {
+      let msgNotVerified = `Your email has\'nt been verified. Please check your email and click verification link`
       console.log('in authorization', task)
       if (task) {
         if (task.UserId == req.currentUserId) {
-          next()
+          if (task.User.isVerified) next()
+          else next({ msg: msgNotVerified, status: 'not_authorized' })
         } else {
           next({ msg: 'You are not authorized', status: 'not_authorized'})
         }
