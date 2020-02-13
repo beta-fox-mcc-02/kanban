@@ -15,9 +15,11 @@ module.exports = (req, res, next) => {
             } else {
                 next({
                     status: 400,
-                    msg: "Data not found"
-                })
-            }
+                        msg: "Data not found"
+                    })
+                }
+            })
+        .catch(err => {
+            next(err)
         })
-        .catch(next)
 }

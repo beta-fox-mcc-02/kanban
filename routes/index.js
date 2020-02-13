@@ -14,5 +14,6 @@ router.post('/login', UserController.login)
 router.post('/tasks', authentication, TaskController.create)
 router.get('/tasks', authentication, TaskController.readTask)
 router.delete('/tasks/:id', authentication, authorization, TaskController.delete)
+router.put('/tasks/:id', authentication, authorization, TaskController.update)
 
 module.exports = router
