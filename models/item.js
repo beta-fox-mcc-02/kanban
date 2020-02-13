@@ -1,7 +1,9 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
     class Item extends sequelize.Sequelize.Model {
-        static associate(models) {}
+        static associate(models) {
+            Item.belongsTo(models.Card)
+        }
     }
 
     Item.init(
@@ -10,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    isNull: {
+                    notNull: {
                         args: false,
                         msg: `Title can't be blank`
                     }
@@ -20,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 validate: {
-                    isNull: {
+                    notNull: {
                         args: false,
                         msg: `CardId can't be blank`
                     }
@@ -31,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
                 defaultValue: false,
                 validate: {
-                    isNull: {
+                    notNull: {
                         args: false,
                         msg: `Status can't be blank`
                     }

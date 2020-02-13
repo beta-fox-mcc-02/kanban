@@ -1,7 +1,10 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
     class Board extends sequelize.Sequelize.Model {
-        static associate(models) {}
+        static associate(models) {
+            Board.belongsTo(models.User)
+            Board.hasMany(models.List)
+        }
     }
 
     Board.init(
