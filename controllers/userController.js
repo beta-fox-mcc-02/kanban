@@ -44,7 +44,7 @@ class UserController{
                         email: data.email
                     }
                     let token = jwt.sign(payload, 'private key')
-                    res.status(200).json({ token })
+                    res.status(200).json({ token, name: data.name })
                 }
                 else next(`INPUT INVALID`)
             }

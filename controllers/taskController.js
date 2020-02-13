@@ -1,10 +1,13 @@
-const { Task, Category } = require('../models')
+const { Task, Category, User } = require('../models')
 const jwt = require('jsonwebtoken')
 
 class TaskController{
     static findAll(req, res, next) {
         Category.findAll({
-            include: [Task]
+            include: {
+                model: Task,
+                include: User
+            }
         })
         .then(data => {
             res.status(200).json(data)
@@ -13,11 +16,10 @@ class TaskController{
     }
 
     static create(req, res, next) {
-        let decoded = jwt.verify(req.headers.token, 'private key')
         Task.create({
             title: req.body.title,
             CategoryId: 1,
-            UserId: decoded.id,
+            UserId: req.currentUserId,
             tag: req.body.tag
         })
         .then((data) => {

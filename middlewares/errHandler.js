@@ -14,5 +14,9 @@ module.exports = (err, req, res, next) => {
         error.msg = containerErrors
         status = 400
     }
+    else if(err.message.substring(0, 7) === `invalid`) {
+        error.msg = err.message
+        status = 400
+    }
     res.status(status).json(error)
 }
