@@ -4,11 +4,15 @@ class CategoryController {
   static getCategories(req, res, next) {
     const user_id = req.decoded
     Category.findAll({
-      attributes: ['id', 'name'],
-      include: [Task],
+      include: [{
+        model: Task
+      }],
       where: {
         user_id
-      }
+      },
+      order: [
+        ['id', 'ASC']
+      ]
     })
       .then(categories => {
         res.status(200).json(categories)
@@ -25,7 +29,7 @@ class CategoryController {
     Category.create(parameters)
       .then(newCategory => {
         res.status(200).json({
-          name: newCategory.name
+          newCategory
         })
       })
       .catch(next)

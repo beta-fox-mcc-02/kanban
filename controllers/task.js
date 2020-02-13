@@ -75,6 +75,19 @@ class TaskController {
       })
       .catch(next)
   }
+
+  static deleteTask(req, res, next) {
+    const id = +req.params.id
+    Task.destroy({
+      where: {
+        id
+      }
+    })
+      .then(response => {
+        res.status(200).json(response)
+      })
+      .catch(next)
+  }
 }
 
 module.exports = TaskController

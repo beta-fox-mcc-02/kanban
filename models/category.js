@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
   class Category extends Model {
     static associate(models) {
-      Category.hasMany(models.Task, { foreignKey: 'id' })
+      Category.hasMany(models.Task, { foreignKey: 'category_id' })
       Category.belongsTo(models.User, { foreignKey: 'user_id' })
     }
   }
