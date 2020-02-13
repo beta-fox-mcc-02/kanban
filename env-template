@@ -1,0 +1,6 @@
+SECRET="hacktiv8"
+SALT=10
+PORT=3000
+API_KEY=026a9361-6eee-4be9-884a-d2dd49eda349
+CLIENT_ID=966388135969-de6jg7bq6n9k9q2mq60i7k05hmr89kq7.apps.googleusercontent.com
+DUMMYPASSWORD=hacktiv8
