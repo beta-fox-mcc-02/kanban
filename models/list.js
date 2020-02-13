@@ -1,7 +1,10 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
     class List extends sequelize.Sequelize.Model {
-        static associate(models) {}
+        static associate(models) {
+            List.belongsTo(models.Board)
+            List.hasMany(models.Card)
+        }
     }
 
     List.init(
@@ -10,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    isNull: {
+                    notNull: {
                         args: false,
                         msg: `Title can't be blank`
                     }
@@ -20,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 validate: {
-                    isNull: {
+                    notNull: {
                         args: false,
                         msg: `Title can't be blank`
                     }

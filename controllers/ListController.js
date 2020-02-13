@@ -1,15 +1,15 @@
-const { Board } = require('../models')
+const { List } = require('../models')
 
-class BoardController {
+class ListController {
     static create(req, res, next) {
-        const { title } = req.body
+        const { title, BoardId } = req.body
 
-        const board = {
+        const list = {
             title,
-            UserId: req.jwtPayload.id
+            BoardId
         }
 
-        Board.create(board)
+        List.create(list)
             .then(data => {
                 res.status(201).json({ data })
             })
@@ -17,8 +17,8 @@ class BoardController {
     }
 
     static findAll(req, res, next) {
-        const id = 3
-        Board.findAll({ where: { UserId: id } })
+        const { BoardId } = req.query
+        List.findAll({ where: { BoardId } })
             .then(data => {
                 res.status(200).json({ data })
             })
@@ -27,7 +27,7 @@ class BoardController {
 
     static findOne(req, res, next) {
         const { id } = req.params
-        Board.findOne({ where: { id } }).then(data => {
+        List.findOne({ where: { id } }).then(data => {
             res.status(200).json({ data })
         })
     }
@@ -37,7 +37,7 @@ class BoardController {
 
         const { title } = req.body
 
-        Board.update({ title }, { where: { id }, returning: true })
+        List.update({ title }, { where: { id }, returning: true })
             .then(result => {
                 const data = result[1][0]
                 res.status(200).json({ data })
@@ -48,7 +48,7 @@ class BoardController {
     static delete(req, res, next) {
         const { id } = req.params
 
-        Board.destroy({ where: { id } })
+        List.destroy({ where: { id } })
             .then(data => {
                 res.status(200).json({ data })
             })
@@ -56,4 +56,4 @@ class BoardController {
     }
 }
 
-module.exports = BoardController
+module.exports = ListController
