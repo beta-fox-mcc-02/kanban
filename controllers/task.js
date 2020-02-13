@@ -57,6 +57,24 @@ class TaskController {
       })
       .catch(next)
   }
+
+  static updateTask(req, res, next) {
+    const id = +req.params.id
+    const parameters = {
+      title: req.body.title,
+      description: req.body.description
+    }
+    Task.update(parameters, {
+      where: {
+        id
+      },
+      returning: true
+    })
+      .then(task => {
+        res.status(200).json(task)
+      })
+      .catch(next)
+  }
 }
 
 module.exports = TaskController

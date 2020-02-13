@@ -8,5 +8,6 @@ router.get('/category/:category_id', TaskController.getAllTask)
 
 router.use('/:id', isAuthorizationed)
 router.get('/:id', TaskController.getTask)
+router.put('/:id', TaskController.updateTask)
 
 module.exports = router
