@@ -40,7 +40,12 @@ class CategoryController {
 
   static deleteCategory(req,res,next){
     let id = req.params.id
-    Category.destroy({where:{id}})
+    Task.destroy({where:{
+      CategoryId:id
+    }})
+    .then(result=>{
+      return Category.destroy({where:{id}})
+    })
     .then(result=>{
       res.status(200).json({result})
     })
