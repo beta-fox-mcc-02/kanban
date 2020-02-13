@@ -1,16 +1,7 @@
 function errorHandler(err, req, res, next) {
-    console.log('=======', err)
     let status = 500
     let errObj = {
         msg: 'internal server error'
-    }
-
-    // error not found
-    if (err.name = 'notFound') {
-        status = 404,
-        errObj = {
-            msg: 'Not Found'
-        }
     }
 
     // error validation
@@ -43,12 +34,20 @@ function errorHandler(err, req, res, next) {
     }
 
     // sign in error
-    if (err.name = 'signInRequirementError') {
-        status = 400,
-        errObj = {
-            msg: 'invalid email or password'
-        }
-    }
+    // if (err.name = 'signInRequirementError') {
+    //     status = 400,
+    //     errObj = {
+    //         msg: 'invalid email or password'
+    //     }
+    // }
+
+    // error not found
+    // if (err.name = 'notFound') {
+    //     status = 404,
+    //     errObj = {
+    //         msg: 'Not Found'
+    //     }
+    // }
     
     res.status(status).json(errObj)
 }

@@ -68,16 +68,14 @@ class Controller {
                             token
                         })
                     } else {
-                        const err = {
-                            name: 'signInRequirementError'
-                        }
-                        next(err)
+                        res.status(400).json({
+                            msg: 'invalid email or password'
+                        })
                     }
                 } else {
-                    const err = {
-                        name: 'signInRequirementError'
-                    }
-                    next(err)
+                    res.status(400).json({
+                        msg: 'invalid email or password'
+                    })
                 }
             })
             .catch(err => {
