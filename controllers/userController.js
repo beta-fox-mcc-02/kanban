@@ -30,27 +30,28 @@ class UserController{
     }
     
     static login(req, res, next) {
-        User.findOne({
-            where: {
-                email: req.body.email
-            }
-        })
-        .then(data => {
-            if(data) {
-                let isPassValid = BcryptPassword.comparing(req.body.password, data.password)
-                if(isPassValid) {
-                    let payload = {
-                        id: data.id,
-                        email: data.email
-                    }
-                    let token = jwt.sign(payload, 'private key')
-                    res.status(200).json({ token })
-                }
-                else next(`INPUT INVALID`)
-            }
-            else next(`INPUT NOT FOUND`)
-        })
-        .catch((err) => next(err))
+        res.status(200).json(req.body)
+        // User.findOne({
+        //     where: {
+        //         email: req.body.email
+        //     }
+        // })
+        // .then(data => {
+        //     if(data) {
+        //         let isPassValid = BcryptPassword.comparing(req.body.password, data.password)
+        //         if(isPassValid) {
+        //             let payload = {
+        //                 id: data.id,
+        //                 email: data.email
+        //             }
+        //             let token = jwt.sign(payload, 'private key')
+        //             res.status(200).json({ token })
+        //         }
+        //         else next(`INPUT INVALID`)
+        //     }
+        //     else next(`INPUT NOT FOUND`)
+        // })
+        // .catch((err) => next(err))
     }
 
     static googleLogin(req, res, next) {
