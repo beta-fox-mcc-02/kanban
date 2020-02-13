@@ -12,7 +12,7 @@ class TaskController {
                 } else {
                     return Task.create({
                         title: req.body.title,
-                        CategoryId: req.body.category,
+                        CategoryId: 1,
                         UserId: req.currentUserId
 
                     })
