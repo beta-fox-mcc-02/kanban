@@ -6,5 +6,6 @@ const authentication = require('../middlewares/authentication')
 router.post('/', authentication, TaskController.create)
 router.delete('/:id', authentication, TaskController.delete)
 router.put('/:id', authentication, TaskController.update)
+router.patch('/:id', authentication, TaskController.updateStatus)
 
 module.exports = router

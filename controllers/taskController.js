@@ -58,6 +58,29 @@ class TaskController {
             next(err)
          })
    }
+
+   static updateStatus(req, res, next) {
+      let update = {
+         status: req.body.status
+      }
+      Task.update(update, {
+         where: {
+            id: req.params.id
+         },
+         returning: true
+      })
+         .then(data => {
+            if (data[0] === 0) {
+               next({ code: 404, message: `cannot find Task with id ${req.params.id}` })
+            }
+            else {
+               res.status(200).json(data[1][0])
+            }
+         })
+         .catch(err => {
+            next(err)
+         })
+   }
 }
 
 module.exports = TaskController
