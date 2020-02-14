@@ -110,7 +110,7 @@ Returns json access token data when user login
 
 -   **URL**
 
-    /tasks/:id
+    /tasks/
 
 -   **Method:**
 
@@ -161,6 +161,220 @@ Returns json access token data when user login
         {
             "message": [
                 "jwt error"
+            ]
+        }
+        ```
+
+## **Find One Task**
+  Returns json data for one task for specific user id
+
+- **Headers**
+
+    Authorization: access_token
+
+-   **URL**
+
+    /tasks/:id
+
+-   **Method:**
+
+    `GET`
+
+-   **URL Params**
+
+    **Required:**
+
+    `id=[integer]`
+
+-   **Data Params**
+
+     None
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+        {
+            "data": {
+                "id": 9,
+                "title": "new task",
+                "category": "DONE",
+                "UserId": 2,
+                "createdAt": "2020-02-14T01:51:39.071Z",
+                "updatedAt": "2020-02-14T02:13:02.165Z"
+            }
+        }
+        ```
+
+-   **Error Response:**
+
+    -   **Code:** 403 NOT AUTHORIZED <br />
+        **Content:**
+        ```json
+        {
+            "message": [
+                "you are not authorized"
+            ]
+        }
+        ```
+
+## **Create Task**
+  Create json data for 1 task for specific user id
+
+- **Headers**
+
+    Authorization: access_token
+
+-   **URL**
+
+    /tasks/
+
+-   **Method:**
+
+    `POST`
+
+-   **URL Params**
+
+    **Required:**
+
+    None
+
+-   **Data Params**
+
+     None
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+        {
+            "data": {
+                "id": 18,
+                "title": "Add More Task",
+                "category": "BACKLOG",
+                "UserId": 2,
+                "updatedAt": "2020-02-14T17:28:07.762Z",
+                "createdAt": "2020-02-14T17:28:07.762Z"
+            }
+        }
+        ```
+
+-   **Error Response:**
+
+    -   **Code:** 403 NOT AUTHORIZED <br />
+        **Content:**
+        ```json
+        {
+            "message": [
+                "you are not authorized"
+            ]
+        }
+        ```
+## **Update Task**
+  Update json data for 1 task for specific user id
+
+- **Headers**
+
+    Authorization: access_token
+
+-   **URL**
+
+    /tasks/:id
+
+-   **Method:**
+
+    `PUT`
+
+-   **URL Params**
+
+    **Required:**
+
+    `id=[integer]`
+
+-   **Data Params**
+
+     None
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+        {
+            "data": [
+                1,
+                [
+                    {
+                        "id": 3,
+                        "title": "EDIT TASK",
+                        "category": "TODO",
+                        "UserId": 2,
+                        "createdAt": "2020-02-13T22:49:59.146Z",
+                        "updatedAt": "2020-02-14T17:29:29.669Z"
+                    }
+                ]
+            ]
+        }
+        ```
+
+-   **Error Response:**
+
+    -   **Code:** 403 NOT AUTHORIZED <br />
+        **Content:**
+        ```json
+        {
+            "message": [
+                "you are not authorized"
+            ]
+        }
+        ```
+
+## **Delete Task**
+  Delete json data for 1 task for specific user id
+
+- **Headers**
+
+    Authorization: access_token
+
+-   **URL**
+
+    /tasks/:id
+
+-   **Method:**
+
+    `DELETE`
+
+-   **URL Params**
+
+    **Required:**
+
+    `id=[integer]`
+
+-   **Data Params**
+
+     None
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+        {
+            "message": "task with id 9 is deleted",
+            "data": 1
+        }
+        ```
+
+-   **Error Response:**
+
+    -   **Code:** 403 NOT AUTHORIZED <br />
+        **Content:**
+        ```json
+        {
+            "message": [
+                "you are not authorized"
             ]
         }
         ```
