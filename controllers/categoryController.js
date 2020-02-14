@@ -2,8 +2,15 @@ const { Category, Task } = require('../models')
 
 class Controller {
     static fetchAll(req, res, next) {
+        console.log(req.decoded)
         Category.findAll({
-            include: [ Task ],
+            include: [ {
+                model: Task,
+                where: {
+                    UserId: req.decoded.id
+                }
+            }
+            ],
             order: [['id', 'ASC']]
         })
             .then(response => {
@@ -13,6 +20,7 @@ class Controller {
                 })
             })
             .catch(err => {
+                console.log(err)
                 next(err)
             })
     }

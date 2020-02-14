@@ -1,4 +1,5 @@
 function errorHandler(err, req, res, next) {
+    console.log('error=============', err.name)
     let status = 500
     let errObj = {
         msg: 'internal server error'
@@ -42,7 +43,7 @@ function errorHandler(err, req, res, next) {
     // }
 
     // error not found
-    // if (err.name = 'notFound') {
+    // if (err.name = 'TypeError') {
     //     status = 404,
     //     errObj = {
     //         msg: 'Not Found'
