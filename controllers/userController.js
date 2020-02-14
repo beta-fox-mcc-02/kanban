@@ -4,7 +4,6 @@ const {compare} = require('../helpers/bcryptjs')
 
 class Controller{
     static register(req, res, next){
-        console.log('masuuuuuk')
         const newUser = {
             username : req.body.username,
             email : req.body.email,
@@ -12,7 +11,7 @@ class Controller{
         }
         User.create(newUser)
             .then(result => {
-                console.log('ga masuuuk error')
+    
                 const user = {
                     id : result.id,
                     username : result.username,
@@ -103,7 +102,7 @@ class Controller{
                 }
             })
             .catch(err => {
-                console.log(err,'next')
+    
             })
     }
     static accept(req, res, next){

@@ -8,7 +8,6 @@ class Controller{
                 }
             })
             .then(result => {
-                console.log(result)
                 res.status(200).json({
                     result
                 })
@@ -31,7 +30,6 @@ class Controller{
                 }
             })
             .then(result => {
-                console.log(result)
                 res.status(200).json({
                     result
                 })
@@ -40,7 +38,6 @@ class Controller{
     }
     static insert(req, res, next){
         const UserId = req.decode.id
-        console.log(req.body)
         const newTask = {
             title : req.body.title,
             description : req.body.description,
@@ -91,11 +88,18 @@ class Controller{
         const TaskId = req.params.id
         UserTask.destroy({
                 where : {
-                    id : TaskId
+                    TaskId
                 }
             })
             .then(result => {
-                res.status(200).json(result)
+                return Task.destroy({
+                    where : {
+                        id : TaskId
+                    }
+                })
+            })
+            .then(res => {
+                res.status(200).json(res)
             })
             .catch(next)
     }
