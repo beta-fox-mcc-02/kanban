@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    description : {
+      type :DataTypes.STRING
+    },
     CategoryId: {
       type : DataTypes.INTEGER
     },

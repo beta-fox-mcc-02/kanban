@@ -1,26 +1,37 @@
 const {User, UserTask, Task, Invitation, UserOrganization, Organization, Category} = require('../models')
 
 class Controller{
-    static readAll(req, res, next){
-        Organization.findAll({
-                include : [
-                    {
-                        model : User
-                    },
-                    {
-                        model : Task,
-                        include : [
-                            {
-                                model : Category
-                            },
-                            {
-                                model : User
-                            }
-                        ]
-                    }
-                ]
+    static readCategory(req, res, next){
+        Category.findAll({
+                where : {
+                    OrganizationId : req.headers.id
+                }
             })
             .then(result => {
+                console.log(result)
+                res.status(200).json({
+                    result
+                })
+            })
+            .catch(next)
+    }
+    static readAll(req, res, next){
+        Category.findAll({
+                where : {
+                    OrganizationId : req.headers.id
+                },
+                include : {
+                    model : Task,
+                    include : {
+                        model : User,
+                        attributes : {
+                            exclude : 'password'
+                        }
+                    }
+                }
+            })
+            .then(result => {
+                console.log(result)
                 res.status(200).json({
                     result
                 })
@@ -29,9 +40,12 @@ class Controller{
     }
     static insert(req, res, next){
         const UserId = req.decode.id
+        console.log(req.body)
         const newTask = {
             title : req.body.title,
-            categoryId : req.body.categoryId
+            description : req.body.description,
+            CategoryId : req.body.CategoryId,
+            OrganizationId : +req.headers.id
         }
         Task.create(newTask)
             .then(result => {
@@ -87,7 +101,8 @@ class Controller{
     }
     static category(req, res, next){
         const newCategory = {
-            name : req.body.category
+            name : req.body.category,
+            OrganizationId : +req.headers.id
         }
         Category.create(newCategory)
             .then(result => {

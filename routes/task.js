@@ -2,6 +2,7 @@ const router = require('express').Router()
 const taskController = require('../controllers/taskController')
 
 router.get('/', taskController.readAll)
+router.get('/category', taskController.readCategory)
 router.post('/', taskController.insert)
 router.post('/', taskController.friend)
 router.put('/', taskController.update)

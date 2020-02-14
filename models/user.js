@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
             }
           })
           .then(res => {
-            console.log('masuuuk validate')
             if(res){
               const err = {
                 name : 'SequelizeValidationError',
@@ -49,11 +48,15 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks : {
       beforeCreate : (instances, options) => {
-        if(!instances.username){
-          let pick = instances.email.split('@')
-          instances.username = pick[0] + Math.round(Math.random()*99+1) + kanban
+        console.log(instances.dataValues.password)
+        if(!instances.dataValues.username){
+          let pick = instances.dataValues.email.split('@')
+          instances.dataValues.username = `${pick[0]}${Math.round(Math.random()*99+1)}kanban`
+          instances.dataValues.password = hashPassword(instances.password)
         }
-        instances.password = hashPassword(instances.password)
+        else{
+          instances.dataValues.password = hashPassword(instances.password)
+        }
       }
     }
   }); 

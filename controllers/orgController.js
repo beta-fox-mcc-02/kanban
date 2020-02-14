@@ -7,20 +7,23 @@ class Controller{
     }
     static readAll(req, res, next){
         Organization.findAll({
-               include : User
+               include : {
+                    model : User,
+                    attributes : {
+                        exclude : 'password'
+                    }
+               }
             })
             .then(org => {
                 const organization = []
                 org.forEach(el => {
-                    el.forEach(els => {
+                    el.Users.forEach(els => {
                         if(els.id === req.decode.id){
                             organization.push(el)
                         }
                     })
                 });
-                res.status(200).json({
-                    data : organization
-                })
+                res.status(200).json(organization)
             })
             .catch(next)
     }

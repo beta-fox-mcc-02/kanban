@@ -12,6 +12,7 @@ class Controller{
         }
         User.create(newUser)
             .then(result => {
+                console.log('ga masuuuk error')
                 const user = {
                     id : result.id,
                     username : result.username,
@@ -101,7 +102,9 @@ class Controller{
                     next(err)
                 }
             })
-            .catch(next)
+            .catch(err => {
+                console.log(err,'next')
+            })
     }
     static accept(req, res, next){
         const id = req.params.id
