@@ -2,6 +2,11 @@ const { User, Project } = require('../models')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 const bcrypt = require('bcryptjs')
+// Google
+const { OAuth2Client } = require('google-auth-library')
+const CLIENT_ID = process.env.CLIENT_ID
+const SECRET_PASSWORD = process.env.SECRET_PASSWORD
+const client = new OAuth2Client(CLIENT_ID)
 class UserController {
 
   static findAll (req, res, next) {
@@ -77,6 +82,50 @@ class UserController {
       })
       .catch(next)
   }
+
+  static gsignin (req, res, next) {
+    let data = ''
+    const idToken = req.body.token
+    client
+      .verifyIdToken({
+        idToken,
+        audience: CLIENT_ID
+      })
+      .then( ({ payload }) => {
+        data = payload
+        return User
+          .findOne({
+            where: {
+              email: data.email
+            }
+          })
+      })
+      .then( user => {
+        if(user){
+          return user
+        } else {
+          return User
+            .create({
+              name: data.name,
+              email: data.email,
+              password: SECRET_PASSWORD
+            })
+        }
+      })
+      .then( user => {
+        let payload = {
+          id: user.id,
+          email: user.email,
+          name: user.name
+        }
+        const token = jwt.sign(payload, JWT_SECRET)
+        res.status(200).json({
+          name: payload.name,
+          token
+        })
+      })
+      .catch(next)
+    }
 }
 
 module.exports = UserController
