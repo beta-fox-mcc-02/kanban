@@ -35,7 +35,7 @@ class UserController {
         else {
           if(!checkPassword(password, user.password)) next({
             name: "LoginError",
-            status: 201,
+            status: 404,
             msg: "Wrong username / email / password"
           })
           else {

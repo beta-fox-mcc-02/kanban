@@ -29,7 +29,8 @@ class TaskController {
 
   static create(req, res, next) {
     let UserId = req.currentUserId
-    let {title, description, CategoryId} = req.body
+    let {title, description} = req.body
+    let CategoryId = 1
     Task.create({title, description, CategoryId, UserId})
       .then(() => {
         res.status(201).json({

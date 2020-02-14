@@ -11,7 +11,7 @@ router.get('/', TaskController.findAll)
 router.post('/', TaskController.create)
 
 //get one task for update purpose
-router.get('/:id/update', authorization, TaskController.findByPk)
+router.get('/:id', authorization, TaskController.findByPk)
 
 //update a task
 router.put('/:id/update', authorization, TaskController.update)

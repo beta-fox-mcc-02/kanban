@@ -4,15 +4,17 @@ const {Task} = require('../models')
 module.exports = {
   authentication(req, res, next) {
     let token = verifyToken(req.headers.token)
-    if(token) {
+    if(token.name) {
+      next({
+        name: token.name,
+        status: 401,
+        msg: "Please login first"
+      })
+    }
+    else {
       req.currentUserId = token.id
       next()
     }
-    else next({
-      name: "AuthenticationError",
-      status: 401,
-      msg: "Please login first"
-    })
   },
 
   authorization(req, res, next) {
