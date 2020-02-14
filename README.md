@@ -1,6 +1,6 @@
 **Show All Kanban**
 ----
-  Returns json data about all Kanban.
+  Returns json data about all Kanbans.
 
 * **URL**
 
@@ -25,28 +25,54 @@
     ```json
     {
       "data": [
-        {
-          "id": 2,
-          "title": "Second",
-          "description": "Latihan",
-          "status": false,
-          "due_date": "2020-02-20T00:00:00.000Z",
-          "createdAt": "2020-02-04T10:44:23.214Z",
-          "updatedAt": "2020-02-04T10:44:23.214Z",
-          "UserId": 1,
-          "currentWeather": "awan Mendung"
-        },
-        {
-          "id": 3,
-          "title": "Thrid",
-          "description": "Latihan",
-          "status": false,
-          "due_date": "2020-02-20T00:00:00.000Z",
-          "createdAt": "2020-02-04T12:32:34.850Z",
-          "updatedAt": "2020-02-04T12:32:34.850Z",
-          "UserId": 1,
-          "currentWeather": "awan Mendung"
-        }
+          {
+              "id": 103,
+              "title": "Done 1",
+              "CategoryId": 4,
+              "UserId": 1,
+              "createdAt": "2020-02-14T06:43:37.632Z",
+              "updatedAt": "2020-02-14T06:43:37.632Z"
+          },
+          {
+              "id": 125,
+              "title": "Todo 3 cobalah",
+              "CategoryId": 4,
+              "UserId": 1,
+              "createdAt": "2020-02-14T08:29:43.422Z",
+              "updatedAt": "2020-02-14T08:29:43.422Z"
+          },
+          {
+              "id": 136,
+              "title": "jksabdjksa",
+              "CategoryId": 3,
+              "UserId": 1,
+              "createdAt": "2020-02-14T08:53:41.213Z",
+              "updatedAt": "2020-02-14T08:53:41.213Z"
+          },
+          {
+              "id": 137,
+              "title": "Completed 1",
+              "CategoryId": 3,
+              "UserId": 1,
+              "createdAt": "2020-02-14T08:53:49.335Z",
+              "updatedAt": "2020-02-14T08:53:49.335Z"
+          },
+          {
+              "id": 139,
+              "title": "coba coba kemana",
+              "CategoryId": 4,
+              "UserId": 1,
+              "createdAt": "2020-02-14T08:53:56.816Z",
+              "updatedAt": "2020-02-14T08:53:56.816Z"
+          },
+          {
+              "id": 140,
+              "title": "Todo 1 xx",
+              "CategoryId": 1,
+              "UserId": 1,
+              "createdAt": "2020-02-14T08:53:59.120Z",
+              "updatedAt": "2020-02-14T08:53:59.120Z"
+          }
       ]
     }
     ```
@@ -54,19 +80,19 @@
 * **Error Response:**
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ message : "You must login first" }`
+    **Content:** `{ message : "You must register first" }`
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message : "Internal server error" }`
 ---
 
-**Create Todo**
+**Create Task**
 ----
-  Inserts a data into database and returns the corresponding data.
+  Create task.
 
 * **URL**
 
-  /todos
+  /kanban
 
 * **Method:**
 
@@ -86,16 +112,7 @@
     **Content:** 
     ```json
     {
-      "data": {
-        "id": 5,
-        "title": "Fifth",
-        "description": "Latihan",
-        "status": false,
-        "due_date": "2020-02-20T00:00:00.000Z",
-        "UserId": 1,
-        "updatedAt": "2020-02-04T12:47:05.571Z",
-        "createdAt": "2020-02-04T12:47:05.571Z"
-      }
+        "message": "Success create data"
     }
     ```
  
@@ -105,20 +122,80 @@
     **Content:** `{ message : "Bad request" }`
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ message : "You must login first" }`
+    **Content:** `{ message : "You must register first" }`
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message : "Internal server error" }`
 
 ---
 
-**Show One Todo**
+**Show All Tasks by Category**
 ----
-  Return one todo based on id.
+  Return all tasks with particular id.
 
 * **URL**
 
-  /todos/:id
+  /kanban/:CategoryId
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+    **Required**
+
+    CategoryId=[integer]
+
+* **Data Params**
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    {
+        "data": [
+            {
+                "id": 110,
+                "title": "Todo",
+                "CategoryId": 2,
+                "UserId": 2,
+                "createdAt": "2020-02-14T06:51:43.215Z",
+                "updatedAt": "2020-02-14T06:51:48.407Z",
+                "Category": {
+                    "id": 2,
+                    "name": "Todo",
+                    "createdAt": "2020-02-13T14:18:24.188Z",
+                    "updatedAt": "2020-02-13T14:18:24.188Z"
+                }
+            }
+        ]
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Bad request" }`
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ message : "You must register first" }`
+
+  * **Code:** 404 Not Found <br />
+    **Content:** `{ message : "Not Found" }`
+
+---
+
+**Get One Task by Id**
+----
+  Return one task with particular id.
+
+* **URL**
+
+  /kanban/card/:id
 
 * **Method:**
 
@@ -140,37 +217,37 @@
     **Content:** 
     ```json
     {
-        "data": {
-            "id": 3,
-            "title": "Thrid",
-            "description": "Latihan",
-            "status": false,
-            "due_date": "2020-02-20T00:00:00.000Z",
-            "createdAt": "2020-02-04T12:32:34.850Z",
-            "updatedAt": "2020-02-04T12:32:34.850Z",
-            "UserId": 1,
-            "currentWeather": "awan Mendung"
-        }
+      "data": {
+        "id": 140,
+        "title": "Todo 1 xx",
+        "CategoryId": 1,
+        "UserId": 1,
+        "createdAt": "2020-02-14T08:53:59.120Z",
+        "updatedAt": "2020-02-14T08:53:59.120Z"
+      }
     }
     ```
  
 * **Error Response:**
 
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Bad request" }`
+
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ message : "You must login first" }`
+    **Content:** `{ message : "You must register first" }`
 
   * **Code:** 404 Not Found <br />
     **Content:** `{ message : "Not Found" }`
 
 ---
 
-**Update One Todo**
+**Update One Task**
 ----
-  Update one todo based on id.
+  Update one task based on id.
 
 * **URL**
 
-  /todos/:id
+  /kanban/:id
 
 * **Method:**
 
@@ -192,16 +269,7 @@
     **Content:** 
     ```json
     {
-        "data": {
-            "id": 3,
-            "title": "ajksndkja",
-            "description": "asdkjasb",
-            "status": false,
-            "due_date": "2020-09-10T00:00:00.000Z",
-            "UserId": 1,
-            "createdAt": "2020-02-04T12:32:34.850Z",
-            "updatedAt": "2020-02-04T12:53:07.836Z"
-        }
+      "message": "Success update data"
     }
     ```
  
@@ -211,7 +279,7 @@
     **Content:** `{ message : "Bad request" }`
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ message : "You must login first" }`
+    **Content:** `{ message : "You must register first" }`
 
   * **Code:** 404 Not Found <br />
     **Content:** `{ message : "Not Found" }`
@@ -221,9 +289,9 @@
 
 ---
 
-**Delete One Todo**
+**Delete One Task**
 ----
-  Delete one todo based on id.
+  Delete one task based on id.
 
 * **URL**
 
@@ -249,7 +317,7 @@
     **Content:** 
     ```json
     {
-      "message": "Success delete data with id: 5"
+      "message": "Success delete data
     }
     ```
  
@@ -294,9 +362,7 @@
     **Content:** 
     ```json
     {
-        "id": 6,
-        "email": "uulwake@mail.com",
-        "password": "$2a$10$Fh/oCthhmgT5O/YKgMx0d.BOl0O6Wrd/R8P4ImDN/ujbqspUCfo3."
+      "access_token": "eyJhbIsInR5cCI6IkpXVCJ9.eyJpZCI6NCxNTgxNjc0NjE4fQ.wMFSchDraMBYqAEri6Tchl_0x2St831OGus"
     }
     ```
  
@@ -313,13 +379,57 @@
 
 ---
 
+**Login User**
+----
+  Login a user.
+
+* **URL**
+
+  /login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+    **Required**
+
+    None
+
+* **Data Params**
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** 
+    ```json
+    {
+      "access_token": "eyJhbGciOinR5cCI6IkpXVCJ9.eyJpZCI6NCwigxNjc0NjE4fQ.wMFSchDraMBAEri6Tchl_0x2St831OGus"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Bad request" }`
+
+  * **Code:** 404 BAD REQUEST <br />
+    **Content:** `{ message : "Email Already Exist" }`
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ message : "Internal server error" }`
+
+---
 **Google Sign In**
 ----
   Login a user using google sign in.
 
 * **URL**
 
-  /googleSignIn
+  /gSignIn
 
 * **Method:**
 
@@ -341,7 +451,7 @@
     **Content:** 
     ```json
     {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTgwODI2MTk1fQ.h56et9F8Iby0BNgLIG6e5wvGtRC6oRDvpxHf8WO4rWs" 
+      "access_token": "eyJhbzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWFgwODI2MTk1fQ.h56et9F8IbLIG6e5wvGtRC6oRDvpxHf8WO4rWs" 
     }
     ```
  
@@ -355,16 +465,6 @@
 
 ---
 
-**Third Party API**
-----
-  Third party API that I used.
 
-* **URL**
-
-  https://api.weatherbit.io/v2.0/current?city=Jakarta&country=Indonesia&lang=id&key=ae858ea5e4c94d0fb0384e7b1e966e45
-
-* **TOKEN**
-
-  ae858ea5e4c94d0fb0384e7b1e966e45
 
 
