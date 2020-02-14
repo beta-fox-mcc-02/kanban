@@ -1,5 +1,4 @@
 const errorHandler = (err, req, res, next) => {
-  console.log(err)
   let status = 500
   let errors = []
   const errorObj = {
@@ -21,6 +20,11 @@ const errorHandler = (err, req, res, next) => {
     for (const e of err.errors) {
       errorObj.errors.push(e.message)
     }
+    res.status(status).json(errorObj)
+  } else if (err.name === 'JsonWebTokenError') {
+    status = 400
+    errorObj.message = err.name
+    errorObj.errors.push(err.message)
     res.status(status).json(errorObj)
   } else {
     status = err.status || 500
