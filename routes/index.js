@@ -9,7 +9,7 @@ const gSignInRouter = require('./gSignIn');
 router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 router.use('/kanban', kanbanRouter);
-router.use('/category', categoryRouter);
+// router.use('/category', categoryRouter);
 router.use('/gSignIn', gSignInRouter);
 
 module.exports = router;
