@@ -96,7 +96,7 @@ class UserController {
     static gLogin(req, res, next) {
         let payload;
         client.verifyIdToken({
-            idToken: req.headers.id_token,
+            idToken: req.headers.access_token,
             audience: process.env.CLIENT_ID
         })
             .then((ticket) => {
