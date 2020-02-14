@@ -28,6 +28,7 @@ const errorHandler = (err, req, res, next) => {
     res.status(status).json(errorObj)
   } else {
     status = err.status || 500
+    errorObj.status = status
     errorObj.message = err.name || 'Invalid Server Error'
     errorObj.errors.push(err.message)
     res.status(status).json(errorObj)
