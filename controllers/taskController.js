@@ -98,8 +98,8 @@ class Controller{
                     }
                 })
             })
-            .then(res => {
-                res.status(200).json(res)
+            .then(result => {
+                res.status(200).json(result)
             })
             .catch(next)
     }
@@ -113,6 +113,21 @@ class Controller{
                 res.status(201).json(result)
             })
             .catch(next)
+    }
+    static allUser(req, res, next){
+        User.findAll({
+            attributes : {
+                exclude : 'password'
+            }
+        })
+         .then(result => {
+             const users = []
+             result.forEach(el => {
+                 if(el.id != req.decode.id) users.push(el)
+             });
+             res.status(200).json(users)
+         })
+         .catch(next)
     }
 }
 
