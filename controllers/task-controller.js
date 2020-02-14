@@ -6,7 +6,7 @@ class Controller {
             title: req.body.title,
             description: req.body.description,
             UserId: req.decoded,
-            CategoryId: req.body.CategoryId
+            CategoryId: req.params.CategoryId
         })
             .then(newTask => {
                 res.status(201).json(newTask);
@@ -18,7 +18,7 @@ class Controller {
 
     static findAll(req, res, next) {
         Task.findAll({
-            where: {id: req.decoded, CategoryId: req.params.CategoryId}
+            where: {UserId: req.decoded, CategoryId: req.params.CategoryId}
         })
             .then(tasks => {
                 res.status(200).json(tasks);

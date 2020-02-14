@@ -9,9 +9,8 @@ module.exports = {
             if (token) { 
                 const decoded = jwt.verifyToken(token);
                 req.decoded = decoded.id;
-                
                 User.findOne({
-                    where: {id: decoded}
+                    where: {id: decoded.id}
                 })
                     .then(data => {
                         if (data) {

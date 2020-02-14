@@ -14,6 +14,7 @@ app.use(express.json());
 const userRoute = require('./routes/user-route');
 const errorHandler = require('./middlewares/error-handler');
 const taskRoute = require('./routes/task-route');
+const categoryRoute = require('./routes/category-route');
 
 app.get('/', (req, res) => {
     res.status(201).json('Hello World')
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 app.use(userRoute);
 app.use(taskRoute);
+app.use(categoryRoute);
 app.use(errorHandler);
   
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))

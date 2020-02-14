@@ -4,7 +4,8 @@ class Controller {
 
     static create(req, res, next) {
         Category.create({
-            name: req.body.name
+            name: req.body.name,
+            UserId: req.decoded
         })
             .then(newCategory => {
                 res.status(201).json(newCategory);
@@ -15,11 +16,14 @@ class Controller {
     }
 
     static findAll(req, res, next) {
-        Category.findAll()
+        Category.findAll({
+            where: {UserId: req.decoded}
+        })
             .then(categories => {
                 res.status(200).json(categories);
             })
             .catch(err => {
+                console.log(req.decoded, '===============')
                 next(err);
             })
     }

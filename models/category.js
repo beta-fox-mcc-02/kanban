@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {args: true, msg: 'Category name cannot be empty'}
       }
+    },
+    UserId: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize
@@ -17,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   Category.associate = function(models) {
     // associations can be defined here
     Category.hasMany(models.Task, {foreignKey: 'id'});
+    Category.belongsTo(models.User, {foreignKey: 'UserId'})
   };
   return Category;
 };
