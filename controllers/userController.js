@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Task } = require('../models')
 const BcryptPassword = require('../helpers/bcryptPassword.js')
 const { Op } = require('sequelize')
 const jwt = require('jsonwebtoken')
@@ -6,6 +6,24 @@ const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client("146329937386-os4lmh278qt7on593p96os957soc0bdf.apps.googleusercontent.com")
 
 class UserController{
+    static findAll(req, res, next) {
+        User.findAll({
+            include: [Task]
+        })
+        .then((data) => {
+            let result = []
+            for(let i of data) {
+                let obj = {
+                    name: i.name,
+                    totalTask: i.Tasks.length
+                }
+                result.push(obj)
+            }
+            res.status(200).json({ result })
+        })
+        .catch((err) => next(err))
+    }
+
     static register(req, res, next) {
         User.findOne({
             where: {
