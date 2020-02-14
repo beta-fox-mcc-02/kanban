@@ -8,22 +8,19 @@ errorHandler = (err, req, res, next) => {
     }
     else if(error.name === 'SequelizeValidationError') {
         const messages = []
-        error.errors.forEach(err => {
-            messages.push(err.message)
-        });
-        res.status(400).json({
-            msg : messages
-        })
+        for(let i = 0; i < error.length; i++){
+            messages.push(error[i].message)
+        }
+        // error.errors.forEach(err => {
+        //     messages.push(err.message)
+        // });
+        res.status(400).json(error)
     }
     else if(error.name === 'badInput'){
-        res.status(400).json({
-            msg : err.message
-        })
+        res.status(400).json(error)
     }
     else if(error.name === 'JsonWebTokenError'){
-        res.status(400).json({
-            msg : err.message
-        })
+        res.status(400).json(error)
     }
     else{
         res.status(404).json({
