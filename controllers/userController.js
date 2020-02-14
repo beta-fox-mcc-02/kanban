@@ -30,6 +30,7 @@ class UserController {
         const token = jwt.sign({ id: user.id }, process.env.SECRET)
         res.status(201).json({
           msg: 'Register success',
+          id: user.id,
           name: user.name,
           email: user.email,
           isVerified: user.isVerified,
@@ -48,6 +49,7 @@ class UserController {
             const token = jwt.sign({ id: user.id }, process.env.SECRET);
             res.status(200).json({
               msg: 'Login success',
+              id: user.id,
               name: user.name,
               email: user.email,
               isVerified: user.isVerified,
@@ -104,7 +106,7 @@ class UserController {
       .then(user=>{
         const idUser = user.id
         const token = jwt.sign({ id: idUser }, process.env.SECRET);
-        res.status(status.ids).json({token, msg: status.msg})
+        res.status(status.ids).json({token, msg: status.msg, id:idUser})
       })
       .catch(err=>{
         next(err)
