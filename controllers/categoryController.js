@@ -3,10 +3,24 @@ const { Category } = require('../models')
 
 class CategoryController {
   static findOne(req,res,next){
-    let {id} = req.body
-    Category.findOne({where:{id}})
+    let UserId = req.decoded.id
+    Category.findAll({
+      include:[Task], order:[['id','ASC']]})
     .then(category=>{
-      res.status(200).json({category})
+      let categories = []
+      let output = category.forEach(el => {
+        let output = el.Tasks.filter(element=>{
+          return element.UserId === UserId
+        })
+        let temp=output.map(el => {
+          return {title: el.title, id:el.id}
+        })
+        let outOk = temp.sort((a,b)=>a.id-b.id)
+        categories.push({
+          id : el.id, name : el.name, task : outOk
+        })
+      })
+      res.status(200).json({categories})
     })
     .catch(err=>{
       next (err)
@@ -54,3 +68,5 @@ class CategoryController {
     })
   }
 }
+
+module.exports = CategoryController
