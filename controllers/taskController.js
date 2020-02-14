@@ -49,6 +49,7 @@ class TaskController {
 
   static updateTask (req, res, next) {
     const { title } = req.body
+    console.log(title)
     Task.update({ title }, {
       where: {
         id: req.params.id
