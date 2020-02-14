@@ -47,6 +47,7 @@ class UserController {
                             token
                         })
                     } else {
+                        console.log("MASUUUUKKKKKKKKKKKKKK")
                         next({
                             status: 404,
                             msg: "Email/Password wrong"

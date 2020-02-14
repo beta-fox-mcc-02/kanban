@@ -10,6 +10,7 @@ module.exports = (err, req, res, next) => {
             msg: createMsg
         })
     } else {
+        console.log(err.msg, "+++++++++++++++++++++++++++++++++++++++++++++")
         res.status(err.status || 500).json({
             msg: err.msg || "Invalid Server Error"
         })
