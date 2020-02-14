@@ -3,8 +3,29 @@ module.exports = function(err, req, res, next) {
     let objErr = {
         msg : "Internal Server Error"
     }
-
-    if (err.name === 'NotFound') { // error di di authentication findByPk
+    if (err.name === "SequelizeValidationError") {
+        status = 400
+        let errorMessages = []
+        err.errors.forEach(error => {
+            errorMessages.push(error.message)
+        }) 
+        objErr = {
+            msg : 'Bad Request',
+            errors : errorMessages
+        }
+    } else if (err.name === "SequelizeUniqueConstraintError") {
+        status = 400
+        objErr = {
+            msg : 'Bad Request',
+            errors : ['Email is already exists']
+        }
+    } else if (err.name === "ErrorLogin") {
+        status == 400
+        objErr = {
+            msg : 'Bad Request',
+            errors : err.msg
+        }
+    } else if (err.name === 'NotFound') { // error di di authentication findByPk
         status = 404
         objErr = {
             msg : "Not Found",
@@ -19,5 +40,5 @@ module.exports = function(err, req, res, next) {
         }
     }
 
-    res.status(500).json(err)
+    res.status(status).json(objErr)
 }

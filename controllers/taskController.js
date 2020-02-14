@@ -39,6 +39,7 @@ class TaskController {
             .then(tasks => {
                 console.log('MASUK OUTPUT TASK FIND ALL')
                 dataTasks = tasks
+                console.log(tasks)
                 return User.findByPk(req.currentUserId)
             })
             .then(user => {
