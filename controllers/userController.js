@@ -2,6 +2,8 @@ const { User } = require('../models')
 const BcryptPassword = require('../helpers/bcryptPassword.js')
 const { Op } = require('sequelize')
 const jwt = require('jsonwebtoken')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client("146329937386-os4lmh278qt7on593p96os957soc0bdf.apps.googleusercontent.com")
 
 class UserController{
     static register(req, res, next) {
@@ -54,7 +56,35 @@ class UserController{
     }
 
     static googleLogin(req, res, next) {
-        
+        let email;
+        client.verifyIdToken({
+            idToken: req.body.id_token,
+            audience: "146329937386-os4lmh278qt7on593p96os957soc0bdf.apps.googleusercontent.com"
+        })
+        .then((response) => { 
+            email = response.payload.email
+            return User.findOne({
+                where: { email }
+            })
+        })
+        .then((result) => {
+            if(!result) {
+                return User.create({
+                    email,
+                    password: `ucul`
+                })
+            }
+            else return result
+        })
+        .then((data) => {
+            let payload = {
+                id: data.id,
+                email: data.email
+            }
+            let token = jwt.sign(payload, 'private key')
+            res.status(200).json({ token, name: data.name })
+        })
+        .catch((err) => next(err))
     }
 }
 

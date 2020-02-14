@@ -3,6 +3,7 @@ let { User, Task } = require('../models')
 
 module.exports = {
     authentification: (req, res, next) => {
+        console.log("here")
         if(req.headers.token) {
             let decoded = jwt.verify(req.headers.token, 'private key')
             User.findByPk(decoded.id)
