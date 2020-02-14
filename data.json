@@ -1,0 +1,23 @@
+[
+    {
+        "TitleCategory" : "Backlog",
+        "createdAt" : "now()",
+        "updatedAt" : "now()"
+
+    },
+    {
+        "TitleCategory" : "To Do",
+        "createdAt" : "now()",
+        "updatedAt" : "now()"
+    },
+    {
+        "TitleCategory" : "Doing",
+        "createdAt" : "now()",
+        "updatedAt" : "now()"
+    },
+    {
+        "TitleCategory" : "Done",
+        "createdAt" : "now()",
+        "updatedAt" : "now()"
+    }
+]
