@@ -72,7 +72,7 @@ class Controller{
         const id = req.params.id
         const task = {
             title : req.body.title,
-            categoryId : req.body.categoryId
+            CategoryId : req.body.CategoryId
         }
         Task.update(task, {
                 where : {
