@@ -1,0 +1,6 @@
+SALT
+PORT
+SECRET
+CLIENT_ID(google_client_id)
+CLIENT_SECRET(google_client_secret)
+GPWD(google_password)

@@ -8,7 +8,7 @@ Nama database wajib: kanban-beta-fox
 
   http://localhost:3000
 
-# Register & Login
+# Register, Login & All User
 
 **Register**
 ----
@@ -114,6 +114,57 @@ Nama database wajib: kanban-beta-fox
     ```javascript
     "username / password incorrect"
     ```
+
+  * **Code:** 500 Internal Server Error <br />
+      **Content:** <br>
+      ```javascript
+      "internal server error, problem might be occured while some process are done"
+      ```
+
+**Get All Users**
+----
+  Get all user's data(password excluded) after login.
+
+* **URL**
+
+  /users
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   None
+
+* **Data Params**
+
+   None
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** <br>
+    ```javascript
+    [
+      {
+          "id": 1,
+          "name": "admin",
+          "email": "admin@email.com",
+          "createdAt": "2020-02-12T03:56:05.900Z",
+          "updatedAt": "2020-02-12T03:56:05.900Z"
+      },
+      {
+          "id": 8,
+          "name": "mail",
+          "email": "mail@gmail.com",
+          "createdAt": "2020-02-12T13:28:30.253Z",
+          "updatedAt": "2020-02-12T13:28:30.253Z"
+      }
+    ]
+    ```
+ 
+* **Error Response:**
 
   * **Code:** 500 Internal Server Error <br />
       **Content:** <br>
