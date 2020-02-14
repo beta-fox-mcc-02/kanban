@@ -11,7 +11,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/',(req,res)=>{res.send('cot')})
 app.use(routes)
 
 app.listen(PORT,()=>console.log(`Listen on PORT : ${PORT}`))
