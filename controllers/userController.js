@@ -7,7 +7,6 @@ const client = new OAuth2Client(process.env.CLIENT_ID)
 class UserController {
     static register(req, res, next) {
         const { first_name, last_name, email, password } = req.body
-        console.log(req.body)
         User.create({
             first_name, last_name, email, password
         })
@@ -17,7 +16,6 @@ class UserController {
                 })
             })
             .catch(err => {
-                console.log(err)
                 next(err)
             })
     }
@@ -47,7 +45,6 @@ class UserController {
                             token
                         })
                     } else {
-                        console.log("MASUUUUKKKKKKKKKKKKKK")
                         next({
                             status: 404,
                             msg: "Email/Password wrong"
@@ -56,7 +53,6 @@ class UserController {
                 }
             })
             .catch(err => {
-                console.log(err)
                 next(err)
             })
     }
@@ -71,7 +67,6 @@ class UserController {
             audience: process.env.CLIENT_ID
         })
             .then(data => {
-                console.log(data)
                 email = data.payload.email
                 first_name = data.payload.given_name
                 last_name = data.payload.family_name

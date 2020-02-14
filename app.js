@@ -18,5 +18,5 @@ app.use('/', routes)
 app.use(error)
 
 app.listen(port, () => {
-    console.log(`Sedekahlah minimal ${port} atau lebih`)
+    console.log(`connected on port ${port}`)
 })
