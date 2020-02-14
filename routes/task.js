@@ -5,8 +5,8 @@ router.get('/', taskController.readAll)
 router.get('/category', taskController.readCategory)
 router.post('/', taskController.insert)
 router.post('/', taskController.friend)
-router.put('/', taskController.update)
-router.delete('/', taskController.delete)
+router.put('/:id', taskController.update)
+router.delete('/:id', taskController.delete)
 router.post('/category', taskController.category)
 
 module.exports = router
