@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'title cant be empty'
         },
         len:{
-          args:[1,20],
-          msg: 'title cant less than 1 and more than 20 character'
+          args:[1,30],
+          msg: 'title cant less than 1 and more than 30 character'
         }
       }
     },

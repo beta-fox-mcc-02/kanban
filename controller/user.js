@@ -1,11 +1,12 @@
 const { User } = require('../models')
 const { createToken } = require('../helper/jwt')
 const { checkPassword } = require('../helper/bcrypt')
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID);
 
 class Users {
     static register(req, res, next) {
         const { username, email, password } = req.body
-        console.log(req.body, 'req body')
         User.findOne({
             where: { email }
         })
@@ -53,6 +54,40 @@ class Users {
                 })
                 console.log('error di login controller')
             })
+    }
+    static gSignIn(req,res,next){
+        let email = ''
+        let username = ''
+
+        client.verifyIdToken({
+            idToken: req.headers.token,
+            audience: process.env.CLIENT_ID
+        })
+            .then(data => {
+                email = data.payload.email
+                username = data.payload.name
+                
+                return User.findOne({ where: { email } })
+            })
+            .then(data => {
+                if (!data) {
+                    return User.create({
+                        username,
+                        email,
+                        password: process.env.PASSWORD
+                    })
+                } else {
+                    return data
+                }
+            })
+            .then(data => {
+                const token = createToken(data.dataValues.id)
+                res.status(200).json({
+                    id: data.dataValues.id,
+                    token
+                })
+            })
+            .catch(err => console.log(err, 'error google sign in'))
     }
 }
 
