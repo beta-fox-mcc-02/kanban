@@ -58,6 +58,44 @@ class TaskController{
         .catch(err => next(err))
     }
 
+    static update (req, res, next) {
+        Task.findByPk(req.params.id)
+        .then((data) => {
+            if(!req.body.title) req.body.title = data.title
+            if(!req.body.tag) req.body.tag = data.tag
+            if(!req.body.category) req.body.category = data.CategoryId
+            return req.body
+        })
+        .then((data) => {
+            if (typeof data.category === typeof 1) return req.body
+            else {
+                return Category.findOne({ 
+                    where: { name: data.category },
+                    attributes: [ 'id' ]
+                })
+            }
+        })
+        .then((data) => {
+            if(data.id) req.body.category = data.id
+            return req.body
+        })
+        .then((data) => {
+            return Task.update({
+                title: data.title,
+                CategoryId: data.category,
+                UserId: req.currentUserId,
+                tag: data.tag
+            }, { 
+                where: {
+                    id: req.params.id
+                },
+                returning: true
+             })
+        })
+        .then((data) => res.status(200).json(data))
+        .catch((err) => next(err))
+    }
+
     static delete(req, res, next) {
         Task.destroy({
             where: {
