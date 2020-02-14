@@ -38,7 +38,7 @@ class UserController {
                }
                else {
                   var token = jwt.sign({ id: data.id }, process.env.SECRET);
-                  res.status(200).json({ token, msg: `login successfully` })
+                  res.status(200).json({ token, id: data.id, msg: `login successfully` })
                }
             }
          })
@@ -92,7 +92,16 @@ class UserController {
    static getAll(req, res, next) {
       User.findAll()
          .then(data => {
-            res.status(200).json(data)
+            let results = []
+            for (let i = 0; i<= data.length-1; i++) {
+               let temp = {
+                  id: data[i].id,
+                  name: data[i].name,
+                  email: data[i].email
+               }
+               results.push(temp)
+            }
+            res.status(200).json(results)
          })
          .catch(err => {
             next(err)
