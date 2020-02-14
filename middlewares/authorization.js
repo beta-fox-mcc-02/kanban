@@ -10,9 +10,17 @@ module.exports = function(req, res, next) {
             process: 'Authorization'
         })
     } else {
-        try{
+        console.log(0, req.params.id);
+        console.log(1, req.user.id);
+        console.log(2, token);
+        
+        // try{
+ 
+
             Task.findByPk(req.params.id)
                 .then(data => {
+                    console.log(req.user.id, data.UserId);
+                     
                     if(req.user.id === data.UserId) {
                         next();
                     } 
@@ -24,12 +32,12 @@ module.exports = function(req, res, next) {
                     }
                 })
                 .catch(err => { next(err) })
-        } catch(ex) {
-            next({
-                name: 400,
-                msg: 'Invalid token',
-                process: 'Authorization'
-            })
-        }
+        // } catch(ex) {
+        //     next({
+        //         name: 400,
+        //         msg: 'Invalid token',
+        //         process: 'Authorization'
+        //     })
+        // }
     }
 }

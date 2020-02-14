@@ -41,9 +41,10 @@ class TaskController {
     static create(req, res, next) {
         const data = {
             title: req.body.title,
-            CategoryId: Number(req.body.CategoryId),
+            CategoryId: 1,
             UserId: Number(req.body.UserId)
         }
+        console.log(2, data);
         
         Task.create(data)
             .then(result => {
