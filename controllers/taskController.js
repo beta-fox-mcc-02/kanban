@@ -1,4 +1,4 @@
-const { Task } = require('../models')
+const { Task, Project } = require('../models')
 
 class TaskController {
   
@@ -22,8 +22,13 @@ class TaskController {
     Task
       .findAll({
         where: {
-          ProjectId: req.body.ProjectId
+          ProjectId: req.params.projectId
         },
+        include: [
+          {
+            model: Project
+          }
+        ],
         order: [
           ['id', 'ASC']
         ]

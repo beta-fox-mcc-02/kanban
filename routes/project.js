@@ -7,6 +7,7 @@ router.get('/', ProjectController.findAllProjects)
 router.get('/:id', ProjectController.findProject)
 router.post('/', ProjectController.createProject)
 router.post('/invite', ProjectController.inviteUser)
+router.delete('/:id', ProjectController.deleteProject)
 
 
 

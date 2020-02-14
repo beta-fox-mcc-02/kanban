@@ -21,9 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ProjectId: {
-        type: Sequelize.INTEGER,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

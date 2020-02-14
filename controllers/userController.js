@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Project } = require('../models')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 const bcrypt = require('bcryptjs')
@@ -7,6 +7,11 @@ class UserController {
   static findAll (req, res, next) {
     User
       .findAll({
+        include:[
+          {
+            model: Project
+          }
+        ],
         attributes: {
           exclude: ['password']
         }
@@ -54,7 +59,8 @@ class UserController {
             }
             const token = jwt.sign(payload, JWT_SECRET)
             res.status(200).json({
-              token
+              token,
+              name: payload.name
             })
           } else {
             next({

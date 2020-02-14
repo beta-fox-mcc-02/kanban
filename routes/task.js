@@ -4,7 +4,7 @@ const authentication = require('../middlewares/authentication')
 const authorization = require('../middlewares/authorization')
 
 router.use(authentication)
-router.get('/', TaskController.findAll)
+router.get('/:projectId', TaskController.findAll)
 router.post('/', TaskController.createTask)
 
 // need authorization here
