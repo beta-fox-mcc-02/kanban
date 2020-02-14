@@ -16,6 +16,7 @@ class KanbanController {
     const { CategoryId } = req.params;
     const UserId = req.currentUserId;
     Kanban.findAll({
+      order: [['id', 'ASC']],
       where: { UserId, CategoryId },
       include: [Category]
     })
@@ -39,20 +40,6 @@ class KanbanController {
         res.status(200).json({ message: 'Success create data'})
       })
       .catch(next)
-    // Category.findOne({
-    //   where: { id: CategoryId }
-    // })
-    //   .then(data => {
-    //     if (data) {
-    //       return Kanban.create(dataKanban)
-    //     } else {
-    //       next({ status: 400, message: 'Category does not exist' })
-    //     }
-    //   })
-    //   .then(data => {
-    //     res.status(200).json({ message: 'Success create data' });
-    //   })
-      .catch(next)
   }
 
   static update(req, res, next) {
@@ -60,20 +47,12 @@ class KanbanController {
     const { id } = req.params;
     const UserId = req.currentUserId;
     const dataKanban = { title, CategoryId, UserId };
-    Category.findOne({
-      where: { id: CategoryId }
+    console.log();
+    Kanban.update(dataKanban, {
+      where: {id}
     })
       .then(data => {
-        if (data) {
-          return Kanban.update(dataKanban, {
-            where: { id }
-          })
-        } else {
-          next({ status: 400, message: 'Category does not exist' })
-        }
-      })
-      .then(data => {
-        res.status(200).json({ message: 'Success update data' });
+        res.status(200).json({ message: 'Success update data'})
       })
       .catch(next)
   }
