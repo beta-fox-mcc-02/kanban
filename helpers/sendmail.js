@@ -1,5 +1,4 @@
 module.exports = (objectData) => {
-  require('dotenv').config()
   const nodemailer = require('nodemailer')
   const { email, subject, message } = objectData
 
