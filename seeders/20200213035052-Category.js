@@ -5,19 +5,19 @@ module.exports = {
      let categories = [
        {
          "id" : 1, 
-         "status" : "backlog"
+         "status" : "BACKLOG"
        },
        {
         "id" : 2, 
-        "status" : "todo"
+        "status" : "TODO"
       },
       {
         "id" : 3, 
-        "status" : "doing"
+        "status" : "DOING"
       },
       {
         "id" : 4, 
-        "status" : "done"
+        "status" : "DONE"
       },
      ]
       return queryInterface.bulkInsert('Categories', categories, {});

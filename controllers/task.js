@@ -52,8 +52,8 @@ class TaskController {
 
     static update(req, res, next){
         let taskId = +req.params.id
-        let { title, description} = req.body
-        let updateData = {title, description}
+        let { title, description, CategoryId} = req.body
+        let updateData = {title, description, CategoryId}
         Task
             .update(updateData, { 
                 where : {
