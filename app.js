@@ -13,4 +13,4 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(routes)
 
-app.listen(PORT,()=>console.log(`TransJakarta jauh dekat tetap Rp. ${(PORT + 500).toLocaleString()}`))
+app.listen(PORT,()=>console.log(`Listen on PORT : ${PORT}`))

@@ -1,9 +1,8 @@
 const router = require('express').Router()
 const user = require('./user')
+const kanban = require('./kanban')
 
-router.get('/',(req,res)=>{
-    res.send('hello worldie')
-})
 router.use('/', user)
+router.use('/', kanban)
 
 module.exports = router

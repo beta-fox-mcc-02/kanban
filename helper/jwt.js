@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken')
 const SECRET = process.env.SECRET
 module.exports = {
-    createToken: (email) => {
-        return jwt.sign({ email }, SECRET)
+    createToken: (id) => {
+        return jwt.sign({ id }, SECRET)
     },
     verifyToken: (token) => {
         try {
