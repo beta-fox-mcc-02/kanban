@@ -1,4 +1,4 @@
-const { Card } = require('../models')
+const { Card, Item } = require('../models')
 
 class CardController {
     static create(req, res, next) {
@@ -19,7 +19,14 @@ class CardController {
 
     static findAll(req, res, next) {
         const { ListId } = req.query
-        Card.findAll({ where: { ListId } })
+        Card.findAll({
+            where: { ListId },
+            include: [
+                {
+                    model: Item
+                }
+            ]
+        })
             .then(data => {
                 res.status(200).json({ data })
             })
@@ -28,17 +35,28 @@ class CardController {
 
     static findOne(req, res, next) {
         const { id } = req.params
-        Card.findOne({ where: { id } }).then(data => {
-            res.status(200).json({ data })
+        Card.findOne({
+            where: { id },
+            include: [
+                {
+                    model: Item
+                }
+            ]
         })
+            .then(data => {
+                res.status(200).json({ data })
+            })
+            .catch(e => {
+                console.log(e)
+            })
     }
 
     static update(req, res, next) {
         const { id } = req.params
 
-        const { title, description } = req.body
+        const { description } = req.body
 
-        Card.update({ title, description }, { where: { id }, returning: true })
+        Card.update({ description }, { where: { id }, returning: true })
             .then(result => {
                 const data = result[1][0]
                 res.status(200).json({ data })
