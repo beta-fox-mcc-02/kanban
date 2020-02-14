@@ -85,7 +85,9 @@ class TaskController {
       }
     })
       .then(response => {
-        res.status(200).json(response)
+        res.status(200).json({
+          message:'Delete task successfull'
+        })
       })
       .catch(next)
   }

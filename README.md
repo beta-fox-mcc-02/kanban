@@ -72,7 +72,7 @@ Return json access token after user register
 
 ## **Login**
 
-  Returns json access token data when user login
+Returns json access token data when user login
 
 -   **URL**
 
@@ -121,25 +121,75 @@ Return json access token after user register
         **Content:**
         ```json
         {
-          "message": "Bad Request",
-          "errors": [
-              "Title is required",
-              "Due date is required"
-          ]
+            "status": 400,
+            "errors": [
+                "Email / password is incorrect"
+            ],
+            "message": "LOGIN_FAILED"
+        }
+        ```
+
+## **Google Login**
+
+Returns json access token when user login or register by google.
+
+- **Headers**
+
+    token: `<token>`
+
+-   **URL**
+
+    /users/gLogin
+
+-   **Method:**
+
+    `POST`
+
+-   **URL Params**
+
+    None
+
+-   **Data Params**
+
+    None
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJoYW5zaW5zdXNhdHlhQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiSGFuc2luIFN1c2F0eWEiLCJpbml0aWFsIjoiSFMiLCJpYXQiOjE1ODE2NzcwMTF9.Ol7Dw3zwqVTg3D_ZhPU-9iVuhd931L8MzOOQYPlF8zU"
         }
         ```
     -   **Code:** 500 INTERNAL SERVER ERROR <br />
         **Content:**
+
         ```json
         {
-          "message": "Internal Server Error",
-          "error": "entity.parse.failed"
+            "status": 500,
+            "errors": [
+                "The verifyIdToken method requires an ID Token"
+            ],
+            "message": "Error"
         }
         ```
 
-## **Show Todos**
+    -   **Code:** 500 INTERNAL SERVER ERROR <br />
+        **Content:**
 
-  Returns json data for all todo.
+        ```json
+        {
+            "status": 500,
+            "errors": [
+                "Can't parse token envelope: yJhbGciOiJSUzI1NiIsImtpZCI6Ijc2MmZhNjM3YWY5NTM1OTBkYjhiYjhhNjM2YmYxMWQ0MzYwYWJjOTgiLCJ0eXAiOiJKV1QifQ': Unexpected token Ș in JSON at position 0"
+            ],
+            "message": "SyntaxError"
+        }
+        ```
+## **Get categories**
+
+Returns json categories include tasks based logged user
 
 - **Headers**
 
@@ -147,7 +197,7 @@ Return json access token after user register
 
 -   **URL**
 
-    /todos
+    /categories
 
 -   **Method:**
 
@@ -166,51 +216,57 @@ Return json access token after user register
     -   **Code:** 200 <br />
         **Content:**
         ```json
-        { "data": [
-          {
-            "id": 1,
-            "title": "Learn Rest API",
-            "description": "Learn how to create RESTful API",
-            "status": false,
-            "due_date": "2020-01-29T00:00:00.000Z",
-            "createdAt": "2020-02-03T06:03:15.885Z",
-            "updatedAt": "2020-02-03T06:03:15.885Z"
-          },
-          {
-            "id": 2,
-            "title": "Learn Angular",
-            "description": "Learn how to create website using Angular",
-            "status": false,
-            "due_date": "2020-10-01T00:00:00.000Z",
-            "createdAt": "2020-02-03T06:04:05.364Z",
-            "updatedAt": "2020-02-03T07:19:52.767Z"
-          },
-          {
-            "id": 4,
-            "title": "Learn React",
-            "description": "Learn how to create website using React",
-            "status": false,
-            "due_date": "2020-10-19T00:00:00.000Z",
-            "createdAt": "2020-02-03T07:38:27.450Z",
-            "updatedAt": "2020-02-03T07:38:27.450Z"
-          }
-        ],
-        "message": "Successfully fetch todos"
-        }
+        [
+            {
+                "id": 16,
+                "name": "Open",
+                "user_id": 11,
+                "createdAt": "2020-02-14T07:41:42.660Z",
+                "updatedAt": "2020-02-14T07:41:46.414Z",
+                "Tasks": [
+                    {
+                        "id": 47,
+                        "title": "Homepage",
+                        "description": null,
+                        "category_id": 16,
+                        "user_id": 11,
+                        "createdAt": "2020-02-14T07:56:57.470Z",
+                        "updatedAt": "2020-02-14T08:42:58.810Z"
+                    }
+                ]
+            },
+        ]
         ```
-    -   **Code:** 500 INTERNAL SERVER ERROR <br />
-        **Content:**
 
+-   **Error Response:**
+
+    -   **Code:** 400 BAD REQUEST <br />
+        **Content:**
         ```json
         {
-          "message": "Internal Server Error",
-          "error": "entity.parse.failed"
+            "status": 400,
+            "errors": [
+                "Please login first"
+            ],
+            "message": "LOGIN_FAILED"
         }
         ```
 
-## **Get Todo By Id**
+    -   **Code:** 400 INVALID TOKEN <br />
+        **Content:**
+        ```json
+        {
+            "status": 400,
+            "errors": [
+                "invalid token"
+            ],
+            "message": "JsonWebTokenError"
+        }
+        ```
 
-  Returns json data when get todo by id
+## **Create category**
+
+  Returns json data when user create category
 
 - **Headers**
 
@@ -218,21 +274,21 @@ Return json access token after user register
 
 -   **URL**
 
-    /todos/:id
+    /categories
 
 -   **Method:**
 
-    `GET`
+    `POST`
 
 -   **URL Params**
+
+    None
+
+-   **Data Params**
 
     **Required:**
 
-    `id=[integer]`
-
--   **Data Params**
-
-     None
+    `name=[string]`
 
 -   **Success Response:**
 
@@ -240,50 +296,59 @@ Return json access token after user register
         **Content:**
         ```json
         {
-          "data": {
-            "id": 1,
-            "title": "Learn Rest API",
-            "description": "Learn how to create RESTful API",
-            "status": false,
-            "due_date": "2020-01-29T00:00:00.000Z",
-            "createdAt": "2020-02-03T06:03:15.885Z",
-            "updatedAt": "2020-02-03T06:03:15.885Z"
-          },
-          "message": "Successfully get todo with id 1"
+            "newCategory": {
+                "id": 21,
+                "name": "Open",
+                "user_id": 16,
+                "updatedAt": "2020-02-14T10:52:15.522Z",
+                "createdAt": "2020-02-14T10:52:15.522Z"
+            }
         }
         ```
 
 -   **Error Response:**
 
-    -   **Code:** 404 NOT FOUND <br />
+    -   **Code:** 400 BAD REQUEST <br />
         **Content:**
         ```json
         {
-          "message": "Not Found",
-          "error": "Todo is not found with id 1011"
+            "status": 400,
+            "errors": [
+                "Category name is required"
+            ],
+            "message": "Bad Request"
         }
         ```
-    -   **Code:** 500 INTERNAL SERVER ERROR <br />
-        **Content:**
-
-        ```json
-        {
-          "message": "Internal Server Error",
-          "error": "entity.parse.failed"
-        }
-        ```
-
-    -   **Code:** 401 UNAUHTORIZED <br />
+    -   **Code:** 400 LOGIN FAILED <br />
         **Content:**
 
         ```json
         {
-          "message": "You are not authorized"
+            "status": 400,
+            "errors": [
+                "Please login first"
+            ],
+            "message": "LOGIN_FAILED"
         }
         ```
-## **Update Todo**
 
-  Returns json data when update todo by id
+     -   **Code:** 400 INVALID TOKEN <br />
+        **Content:**
+
+        ```json
+        {
+            "status": 400,
+            "errors": [
+                "invalid token"
+            ],
+            "message": "JsonWebTokenError"
+        }
+        ```
+
+
+## **Update Category**
+
+  Returns json data when user update category by id
 
 - **Headers**
 
@@ -291,7 +356,7 @@ Return json access token after user register
 
 -   **URL**
 
-    /todos/:id
+    /categories/:id
 
 -   **Method:**
 
@@ -305,73 +370,69 @@ Return json access token after user register
 
 -   **Data Params**
 
-    `title=[string]`\
-    `description=[string]`\
-    `status=[boolean]`\
-    `due_date=[date]`
+    `name=[string]`
 
 -   **Success Response:**
 
     -   **Code:** 200 <br />
         **Content:**
         ```json
-        {
-          "data": {
-            "id": 1,
-            "title": "Learn Rest API",
-            "description": "Learn how to create RESTful API",
-            "status": false,
-            "due_date": "2020-01-29T00:00:00.000Z",
-            "createdAt": "2020-02-03T06:03:15.885Z",
-            "updatedAt": "2020-02-03T06:03:15.885Z"
-          },
-          "message": "Successfully get todo with id 1"
-        }
+        [
+            1,
+            [
+                {
+                    "id": 21,
+                    "name": "Done",
+                    "createdAt": "2020-02-14T10:52:15.522Z",
+                    "updatedAt": "2020-02-14T10:59:27.485Z",
+                    "user_id": 16
+                }
+            ]
+        ]
         ```
 
 -   **Error Response:**
 
-    -   **Code:** 404 NOT FOUND <br />
+    -   **Code:** 401 UNAUTHORIZED <br />
         **Content:**
         ```json
         {
-          "message": "Not Found",
-          "error": "Todo is not found with id 1011"
+            "status": 401,
+            "errors": [
+                "You are not authorized to access this category"
+            ],
+            "message": "NOT_AUTHORIZED"
         }
         ```
 
-    -   **Code:** 400 BAD REQUEST <br />
+    -   **Code:** 400 LOGIN FAILED <br />
         **Content:**
         ```json
         {
-          "message": "Bad Request",
-          "errors": [
-              "Title is required"
-          ]
+            "status": 400,
+            "errors": [
+                "Please login first"
+            ],
+            "message": "LOGIN_FAILED"
         }
         ```
 
-    -   **Code:** 500 INTERNAL SERVER ERROR <br />
-        **Content:**
-
-        ```json
-        {
-          "message": "Internal Server Error",
-          "error": "entity.parse.failed"
-        }
-        ```
-    -   **Code:** 401 UNAUHTORIZED <br />
+    -   **Code:** 400 INVALID TOKEN <br />
         **Content:**
 
         ```json
         {
-          "message": "You are not authorized"
+            "status": 400,
+            "errors": [
+                "invalid token"
+            ],
+            "message": "JsonWebTokenError"
         }
         ```
 
-## **Delete Todo**
+## **Get Task By Category**
 
-  Returns json data when delete todo by id
+  Returns json tasks by categories and logged user
 
 - **Headers**
 
@@ -379,11 +440,103 @@ Return json access token after user register
 
 -   **URL**
 
-    /todos/:id
+    /tasks/category/:category_id
 
 -   **Method:**
 
-    `DELETE`
+    `GET`
+
+-   **URL Params**
+
+    **Required:**
+
+    `category_id=[integer]`
+
+-   **Data Params**
+
+    None
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+        [
+            {
+                "id": 45,
+                "title": "Task backlog1",
+                "description": null,
+                "category_id": 18,
+                "user_id": 11,
+                "createdAt": "2020-02-14T07:56:50.444Z",
+                "updatedAt": "2020-02-14T11:59:32.087Z"
+            },
+            {
+                "id": 50,
+                "title": "Task 2",
+                "description": null,
+                "category_id": 18,
+                "user_id": 11,
+                "createdAt": "2020-02-14T12:53:35.064Z",
+                "updatedAt": "2020-02-14T12:53:35.064Z"
+            },
+        ]
+        ```
+
+-   **Error Response:**
+
+    -   **Code:** 401 UNAUTHORIZED <br />
+        **Content:**
+        ```json
+        {
+            "status": 401,
+            "errors": [
+                "You are not authorized to access this category"
+            ],
+            "message": "NOT_AUTHORIZED"
+        }
+        ```
+
+    -   **Code:** 400 LOGIN FAILED <br />
+        **Content:**
+        ```json
+        {
+            "status": 400,
+            "errors": [
+                "Please login first"
+            ],
+            "message": "LOGIN_FAILED"
+        }
+        ```
+
+    -   **Code:** 400 INVALID TOKEN <br />
+        **Content:**
+
+        ```json
+        {
+            "status": 400,
+            "errors": [
+                "invalid token"
+            ],
+            "message": "JsonWebTokenError"
+        }
+        ```
+
+## **Get Task**
+
+  Returns json data when user get task by id
+
+- **Headers**
+
+    Authorization: Bearer `<token>`
+
+-   **URL**
+
+    /tasks/:id
+
+-   **Method:**
+
+    `GET`
 
 -   **URL Params**
 
@@ -401,7 +554,204 @@ Return json access token after user register
         **Content:**
         ```json
         {
-          "message": "Delete todo with 1 successfully"
+            "id": 56,
+            "title": "Make a homepage",
+            "description": null,
+            "category_id": 21,
+            "user_id": 16,
+            "createdAt": "2020-02-14T13:57:32.360Z",
+            "updatedAt": "2020-02-14T13:57:32.360Z",
+            "Category": {
+                "id": 21,
+                "name": "Done",
+                "user_id": 16,
+                "createdAt": "2020-02-14T10:52:15.522Z",
+                "updatedAt": "2020-02-14T11:00:45.171Z"
+            }
+        }
+        ```
+
+-   **Error Response:**
+
+    -   **Code:** 401 NOT AUTHORIZED <br />
+        **Content:**
+        ```json
+        {
+            "status": 401,
+            "errors": [
+                "You are not authorized to access this task"
+            ],
+            "message": "NOT_AUTHORIZED"
+        }
+        ```
+
+    -   **Code:** 404 NOT FOUND <br />
+        **Content:**
+        ```json
+        {
+            "status": 404,
+            "errors": [
+                "Task not found with id 111"
+            ],
+            "message": "NOT_FOUND"
+        }
+        ```
+
+## **Create Task**
+
+  Returns json data when user create task
+
+-   **URL**
+
+    /tasks
+
+-   **Method:**
+
+    `POST`
+
+-   **URL Params**
+
+    None
+
+-   **Data Params**
+
+      **Required:**
+
+      `title=[string]`
+      `category_id=[integer]`
+
+      **Optional**
+
+      `description=[string]`
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+       {
+            "id": 58,
+            "title": "Make a landing page",
+            "category_id": 21,
+            "user_id": 16,
+            "updatedAt": "2020-02-14T14:06:48.596Z",
+            "createdAt": "2020-02-14T14:06:48.596Z",
+            "description": null
+        }
+        ```
+
+-   **Error Response:**
+
+    -   **Code:** 400 BAD REQUEST <br />
+        **Content:**
+        ```json
+        {
+            "status": 400,
+            "errors": [
+                "Title is required"
+            ],
+            "message": "Bad Request"
+        }
+        ```
+
+## **Update Task**
+
+  Returns json data when user update task
+
+-   **URL**
+
+    /tasks/:id
+
+-   **Method:**
+
+    `PUT`
+
+-   **URL Params**
+
+    None
+
+-   **Data Params**
+
+      **Required:**
+
+      `id=[integer]`
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+        [
+            1,
+            [
+                {
+                    "id": 56,
+                    "title": "Make a homepage",
+                    "description": null,
+                    "category_id": 21,
+                    "createdAt": "2020-02-14T13:57:32.360Z",
+                    "updatedAt": "2020-02-14T14:18:21.643Z",
+                    "user_id": 16
+                }
+            ]
+        ]
+        ```
+
+-   **Error Response:**
+
+    -   **Code:** 400 BAD REQUEST <br />
+        **Content:**
+        ```json
+        {
+            "status": 400,
+            "errors": [
+                "Title is required"
+            ],
+            "message": "Bad Request"
+        },
+        ```
+
+    -   **Code:** 401 NOT AUTHORIZED <br />
+        **Content:**
+        ```json
+       {
+            "status": 401,
+            "errors": [
+                "You are not authorized to access this task"
+            ],
+            "message": "NOT_AUTHORIZED"
+        }
+        ```
+
+## **Delete Task**
+
+  Returns json data when user delete task
+
+-   **URL**
+
+    /tasks/:id
+
+-   **Method:**
+
+    `DELETE`
+
+-   **URL Params**
+
+    None
+
+-   **Data Params**
+
+      **Required:**
+
+      `id=[integer]`
+
+-   **Success Response:**
+
+    -   **Code:** 200 <br />
+        **Content:**
+        ```json
+        {
+            "message": "Delete task successfull"
         }
         ```
 
@@ -411,410 +761,23 @@ Return json access token after user register
         **Content:**
         ```json
         {
-          "message": "Not Found",
-          "error": "Todo is not found with id 1011"
-        }
-        ```
-    -   **Code:** 500 INTERNAL SERVER ERROR <br />
-        **Content:**
-
-        ```json
-        {
-          "message": "Internal Server Error",
-          "error": "entity.parse.failed"
+            "status": 404,
+            "errors": [
+                "Task not found with id 56"
+            ],
+            "message": "NOT_FOUND"
         }
         ```
 
-    -   **Code:** 401 UNAUHTORIZED <br />
-        **Content:**
-
-        ```json
-        {
-          "message": "You are not authorized"
-        }
-        ```
-
-## **Register user**
-
-  Returns json data when user register
-
--   **URL**
-
-    /users/register
-
--   **Method:**
-
-    `POST`
-
--   **URL Params**
-
-    None
-
--   **Data Params**
-
-      **Required:**
-
-      `email=[string]`\
-      `password=[string]`
-
--   **Success Response:**
-
-    -   **Code:** 200 <br />
+    -   **Code:** 401 NOT AUTHORIZED <br />
         **Content:**
         ```json
         {
-          "message": "Register success",
-          "user": {
-            "id": 18,
-            "email": "halo@gmail.com"
-          }
-        }
-        ```
-
--   **Error Response:**
-
-    -   **Code:** 400 BAD REQUEST <br />
-        **Content:**
-        ```json
-        {
-          "message": "Bad Request",
-          "errors": [
-              "Invalid email format"
-          ]
-        }
-        ```
-
-## **Login**
-
-  Returns token when user login
-
--   **URL**
-
-    /users/login
-
--   **Method:**
-
-    `POST`
-
--   **URL Params**
-
-    None
-
--   **Data Params**
-
-      **Required:**
-
-      `email=[string]`\
-      `password=[string]`
-
--   **Success Response:**
-
-    -   **Code:** 200 <br />
-        **Content:**
-        ```json
-        {
-            "message": "Login successfully",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiaGFuc2luQGdtYWlsLmNvbSIsImlhdCI6MTU4MDgwOTk2NH0.54RxdGe1bFzqffwQAxpPowrtKZHyOKU4gZs75mIimyw"
-        }
-        ```
-
--   **Error Response:**
-
-    -   **Code:** 400 BAD REQUEST <br />
-        **Content:**
-        ```json
-        {
-          "message": "email / password is incorrect"
-        }
-        ```
-# 3rd Party API
-
-## **Google Location**
-
-  Returns json data from google when user input location
-
--   **URL**
-
-    /locations
-
--   **Method:**
-
-    `GET`
-
--   **URL Params**
-
-     **Required:**
-
-    `search=[string]`
-
--   **Data Params**
-
-    None
-
--   **Success Response:**
-
-    -   **Code:** 200 <br />
-        **Content:**
-        ```json
-        {
-        "data": {
-          "predictions": [
-            {
-                "description": "Kuningan, Kuningan Regency, West Java, Indonesia",
-                "id": "4fa07cb40d953b94bac8e985f9cd8254161dc306",
-                "matched_substrings": [
-                    {
-                        "length": 8,
-                        "offset": 0
-                    }
-                ],
-                "place_id": "ChIJV7CG2yIUby4RoOIo_PHoAQQ",
-                "reference": "ChIJV7CG2yIUby4RoOIo_PHoAQQ",
-                "structured_formatting": {
-                    "main_text": "Kuningan",
-                    "main_text_matched_substrings": [
-                        {
-                            "length": 8,
-                            "offset": 0
-                        }
-                    ],
-                    "secondary_text": "Kuningan Regency, West Java, Indonesia"
-                },
-                "terms": [
-                    {
-                        "offset": 0,
-                        "value": "Kuningan"
-                    },
-                    {
-                        "offset": 10,
-                        "value": "Kuningan Regency"
-                    },
-                    {
-                        "offset": 28,
-                        "value": "West Java"
-                    },
-                    {
-                        "offset": 39,
-                        "value": "Indonesia"
-                    }
-                ],
-                "types": [
-                    "locality",
-                    "political",
-                    "geocode"
-                ]
-            },
-            {
-                "description": "Kuningan, Karet Kuningan, South Jakarta City, Jakarta, Indonesia",
-                "id": "b381a53e577d7ff7832021c2058b6a739bcf850f",
-                "matched_substrings": [
-                    {
-                        "length": 8,
-                        "offset": 0
-                    }
-                ],
-                "place_id": "ChIJUReS4fjzaS4RYhVBXx2muvE",
-                "reference": "ChIJUReS4fjzaS4RYhVBXx2muvE",
-                "structured_formatting": {
-                    "main_text": "Kuningan",
-                    "main_text_matched_substrings": [
-                        {
-                            "length": 8,
-                            "offset": 0
-                        }
-                    ],
-                    "secondary_text": "Karet Kuningan, South Jakarta City, Jakarta, Indonesia"
-                },
-                "terms": [
-                    {
-                        "offset": 0,
-                        "value": "Kuningan"
-                    },
-                    {
-                        "offset": 10,
-                        "value": "Karet Kuningan"
-                    },
-                    {
-                        "offset": 26,
-                        "value": "South Jakarta City"
-                    },
-                    {
-                        "offset": 46,
-                        "value": "Jakarta"
-                    },
-                    {
-                        "offset": 55,
-                        "value": "Indonesia"
-                    }
-                ],
-                "types": [
-                    "administrative_area_level_5",
-                    "political",
-                    "geocode"
-                ]
-            },
-            {
-                "description": "Kuningan, West Java, Indonesia",
-                "id": "46a40c6b6c7caee91222962a967f1b7e2c8b6e76",
-                "matched_substrings": [
-                    {
-                        "length": 8,
-                        "offset": 0
-                    }
-                ],
-                "place_id": "ChIJF_Y7zjYSby4RULoo_PHoAQM",
-                "reference": "ChIJF_Y7zjYSby4RULoo_PHoAQM",
-                "structured_formatting": {
-                    "main_text": "Kuningan",
-                    "main_text_matched_substrings": [
-                        {
-                            "length": 8,
-                            "offset": 0
-                        }
-                    ],
-                    "secondary_text": "West Java, Indonesia"
-                },
-                "terms": [
-                    {
-                        "offset": 0,
-                        "value": "Kuningan"
-                    },
-                    {
-                        "offset": 10,
-                        "value": "West Java"
-                    },
-                    {
-                        "offset": 21,
-                        "value": "Indonesia"
-                    }
-                ],
-                "types": [
-                    "administrative_area_level_2",
-                    "political",
-                    "geocode"
-                ]
-            },
-            {
-                "description": "Kuningan City, Jalan Professor Doktor Satrio, RT.14/RW.4, Kuningan, Karet Kuningan, South Jakarta City, Jakarta, Indonesia",
-                "id": "28d83f100605af08b6edf27b7d88991a7e520753",
-                "matched_substrings": [
-                    {
-                        "length": 8,
-                        "offset": 0
-                    }
-                ],
-                "place_id": "ChIJ6UdZViTzaS4RUpRN_R2PDUI",
-                "reference": "ChIJ6UdZViTzaS4RUpRN_R2PDUI",
-                "structured_formatting": {
-                    "main_text": "Kuningan City",
-                    "main_text_matched_substrings": [
-                        {
-                            "length": 8,
-                            "offset": 0
-                        }
-                    ],
-                    "secondary_text": "Jalan Professor Doktor Satrio, RT.14/RW.4, Kuningan, Karet Kuningan, South Jakarta City, Jakarta, Indonesia"
-                },
-                "terms": [
-                    {
-                        "offset": 0,
-                        "value": "Kuningan City"
-                    },
-                    {
-                        "offset": 15,
-                        "value": "Jalan Professor Doktor Satrio"
-                    },
-                    {
-                        "offset": 46,
-                        "value": "RT.14"
-                    },
-                    {
-                        "offset": 52,
-                        "value": "RW.4"
-                    },
-                    {
-                        "offset": 58,
-                        "value": "Kuningan"
-                    },
-                    {
-                        "offset": 68,
-                        "value": "Karet Kuningan"
-                    },
-                    {
-                        "offset": 84,
-                        "value": "South Jakarta City"
-                    },
-                    {
-                        "offset": 104,
-                        "value": "Jakarta"
-                    },
-                    {
-                        "offset": 113,
-                        "value": "Indonesia"
-                    }
-                ],
-                "types": [
-                    "shopping_mall",
-                    "point_of_interest",
-                    "establishment"
-                ]
-            },
-            {
-                "description": "Kuningan Jawa Barat, Jalan Raya Bandorasa, Bandorasa Wetan, Kuningan Regency, West Java, Indonesia",
-                "id": "53c6ece9c29abfa958acbd4b18f1aa605fef212b",
-                "matched_substrings": [
-                    {
-                        "length": 8,
-                        "offset": 0
-                    }
-                ],
-                "place_id": "ChIJXXM2atwZby4Rd7tvppw4S40",
-                "reference": "ChIJXXM2atwZby4Rd7tvppw4S40",
-                "structured_formatting": {
-                    "main_text": "Kuningan Jawa Barat",
-                    "main_text_matched_substrings": [
-                        {
-                            "length": 8,
-                            "offset": 0
-                        }
-                    ],
-                    "secondary_text": "Jalan Raya Bandorasa, Bandorasa Wetan, Kuningan Regency, West Java, Indonesia"
-                },
-                "terms": [
-                    {
-                        "offset": 0,
-                        "value": "Kuningan Jawa Barat"
-                    },
-                    {
-                        "offset": 21,
-                        "value": "Jalan Raya Bandorasa"
-                    },
-                    {
-                        "offset": 43,
-                        "value": "Bandorasa Wetan"
-                    },
-                    {
-                        "offset": 60,
-                        "value": "Kuningan Regency"
-                    },
-                    {
-                        "offset": 78,
-                        "value": "West Java"
-                    },
-                    {
-                        "offset": 89,
-                        "value": "Indonesia"
-                    }
-                ],
-                "types": [
-                    "shopping_mall",
-                    "point_of_interest",
-                    "establishment"
-                ]
-              }
-          ],
-          "status": "OK"
-          }
+            "status": 401,
+            "errors": [
+                "You are not authorized to access this task"
+            ],
+            "message": "NOT_AUTHORIZED"
         }
         ```
 
