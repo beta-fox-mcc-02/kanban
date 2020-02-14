@@ -83,7 +83,7 @@ class UserController {
          })
          .then(logUser => {
             const token = jwt.sign({ id: logUser.id }, process.env.SECRET);
-            res.status(200).json({ token })
+            res.status(200).json({ token, id: logUser.id })
          })
          .catch(err => { 
                        
