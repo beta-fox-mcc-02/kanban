@@ -10,6 +10,7 @@ const router = express.Router()
 
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.post('/googlelogin', UserController.googleLogin)
 
 router.post('/tasks', authentication, TaskController.create)
 router.get('/tasks', authentication, TaskController.readTask)
