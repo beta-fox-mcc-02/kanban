@@ -118,7 +118,8 @@ class Controller{
         User.findAll({
             attributes : {
                 exclude : 'password'
-            }
+            },
+            include : Organization
         })
          .then(result => {
              const users = []

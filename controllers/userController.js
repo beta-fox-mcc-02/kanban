@@ -106,8 +106,8 @@ class Controller{
             })
     }
     static accept(req, res, next){
-        const id = req.params.id
-        const name = req.params.name
+        const id = req.body.id
+        const name = req.body.name
         Organization.findOne({
                 where : {
                     name
@@ -130,6 +130,46 @@ class Controller{
                 res.status(200).json(result)
             })
             .catch(next)
+    }
+    static invite(req, res, next){
+        console.log('masuuuuuuuk')
+        Organization.findByPk(+req.headers.id)
+            .then(result => {
+                console.log(result.name)
+                const newInvitation = {
+                    organization : result.name,
+                    UserId : req.body.UserId
+                }
+                return Invitation.create(newInvitation)
+            })
+            .then(result => {
+                res.status(201).json(result)
+            })
+            .catch(next)
+    }
+    static userInvitation(req, res, next){
+        const id = req.decode.id
+        Invitation.findAll({
+                where : {
+                    UserId : id
+                }
+            })
+            .then(result => {
+                res.status(200).json(result)
+            })
+            .catch(next)
+    }
+    static refuse(req, res, next){
+        const id = req.body.id
+        Invitation.destroy({
+            where : {
+                id
+            }
+        })
+        .then(result => {
+            res.status(200).json(result)
+        })
+        .catch(next)
     }
 }
 

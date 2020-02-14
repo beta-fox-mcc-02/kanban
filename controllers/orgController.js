@@ -43,15 +43,10 @@ class Controller{
                 res.status(201).json(userOrg)
             })
     }
-    static invite(req, res, next){
-        const UserId = req.body.id
-        const newInvite = {
-            organization : req.organization,
-            UserId
-        }
-        Invitation.create(newInvite)
+    static check(req, res, next){
+        Invitation.findAll()
             .then(result => {
-                res.status(201).json(result)
+                res.status(200).json(result)
             })
             .catch(next)
     }
