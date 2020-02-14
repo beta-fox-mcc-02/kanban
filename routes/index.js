@@ -7,6 +7,7 @@ const err = require('../middlewares/errorHandler')
 
 router.post('/login', user.login)
 router.post('/register', user.register)
+router.post('/gLogin', user.gLogin)
 router.use(auth)
 router.post('/invite', user.invite)
 router.get('/userInvitation', user.userInvitation)

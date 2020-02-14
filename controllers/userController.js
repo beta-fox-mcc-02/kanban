@@ -1,6 +1,9 @@
 const {User, UserTask, Task, Invitation, UserOrganization, Organization, Category} = require('../models')
 const {createToken} = require('../helpers/jwt')
 const {compare} = require('../helpers/bcryptjs')
+const {OAuth2Client} = require('google-auth-library')
+const client = new OAuth2Client(process.env.CLIENT_ID)
+const jwt = require('../helpers/jwt')
 
 class Controller{
     static register(req, res, next){
@@ -170,6 +173,46 @@ class Controller{
             res.status(200).json(result)
         })
         .catch(next)
+    }
+    static gLogin(req, res, next){
+        let email
+        client.verifyIdToken({
+                idToken : req.body.gToken,
+                audience : process.env.CLIENT_ID
+            })
+            .then(data => {
+                const payload = data.getPayload() 
+                // console.log('masuuuuuuuuuuuuuuuuuk', payload.email)
+                email = payload.email
+                // console.log(email, 123456)
+                return User.findOne({
+                        where : {
+                            email
+                        }
+                    })
+            })
+            .then(user => {
+                // console.log(user.dataValues)
+                if(!user){
+                    // console.log('New user has login')
+                    const newUser = {
+                        email,
+                        password : process.env.TEMP_PASS
+                    }
+                    return User.create(newUser)
+                }
+                else return user.dataValues
+            })
+            .then(result => {
+                // console.log(result)
+                const token = jwt.createToken(result)
+                res.status(200).json({
+                    data : result,
+                    msg : 'login success',
+                    token
+                })
+            })
+            .catch(next)
     }
 }
 
