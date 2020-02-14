@@ -80,9 +80,17 @@ class TaskController {
    }
 
    static update(req, res) {
+      console.log('update')
       let id = +req.params.id
-      let { title, description } = req.body
-      let input = { title, description}
+      let input
+      if(req.body.CategoryId) {
+         let { CategoryId } = req.body
+         input = { CategoryId }
+      } else {
+         let { title, description } = req.body
+         input = { title, description}
+      }
+      console.log(input)
       Task.update(input, {
          where : {
             id 
@@ -90,7 +98,7 @@ class TaskController {
          returning : true
       })
          .then(task => {
-            console.log(task, 'then update task')
+            console.log(task[0], 'then update task')
             res.status(200).json({
                status : 200,
                msg : 'sucess update task'
