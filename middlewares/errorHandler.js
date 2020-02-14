@@ -35,6 +35,13 @@ const errorHandler = (err, req, res, next) => {
             error: err.error
         }
         res.status(errObj.statusCode).json(errObj)
+    } else if (err.name === 'usernotfound') {
+        errObj = {
+            name: err.name,
+            statusCode: 400,
+            error: `User doesn't exists`
+        }
+        res.status(errObj.statusCode).json(errObj)
     } else {
         res.status(errObj.statusCode).json(errObj)
     }
