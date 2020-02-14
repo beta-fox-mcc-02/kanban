@@ -6,6 +6,7 @@
 | ----------- | ----------- |----------- |----------- | ----------- |
 | /register | POST | none |201(Created), 400(Bad Request), 500(Internal Server Error)|Register|
 | /login | POST | none |200(OK), 400(Bad Request), 500(Internal Server Error)|Login|
+| /googlesignin | POST | none |200(OK), 500(Internal Server Error)|Google Sign In|
 
 
 ## Task Routes
