@@ -21,11 +21,7 @@ class KanbanController {
       include: [Category]
     })
       .then(kanban => {
-        if (kanban[0].Category) {
-          res.status(200).json({ data: kanban });
-        } else {
-          next({ status: 400, message: 'Category does not exist' })
-        }
+        res.status(200).json({ data: kanban });
       })
       .catch(next)
   }
