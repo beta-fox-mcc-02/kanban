@@ -1,12 +1,15 @@
 ## **KANBAN APP **
 
-## **SHOW Todos**
+## **SHOW BOARDS**
 
-Returns json data about all of Todos.
+-   **BASE URL**
+    https://kanban-app-heri.herokuapp.com
+
+Returns json data about all of Boards.
 
 -   **URL**
 
-    /todos
+    /boards
 
 -   **Method:**
 
@@ -25,20 +28,30 @@ Returns json data about all of Todos.
     -   **Code:** 200 <br />
         **Content:**
 
-        `{ "data": [ { "id": 3, "title": "Debug", "description": "Debug your code", "status": false, "due_date": "2020-02-03T06:40:04.112Z", "createdAt": "2020-02-03T07:10:44.850Z", "updatedAt": "2020-02-03T07:10:44.850Z" } ] }`
+           `{
+            "data": [
+                {
+                "id": 2,
+                "title": "Task 2",
+                "UserId": 3,
+                "createdAt": "2020-02-11T06:29:55.196Z",
+                "updatedAt": "2020-02-11T06:29:55.196Z"
+                }
+            ]
+            }`
 
 -   **Error Response:**
 
     -   **Code:** 500 INTERNAL SERVER <br />
         **Content:** `{ err<object> }`
 
-## **INSERT Todo**
+## **INSERT BOARD**
 
-Insert todo to database and return object of inserted todo.
+Insert Board to database and return object of inserted todo.
 
 -   **URL**
 
-    /todos
+    /boards
 
 -   **Method:**
 
@@ -50,31 +63,40 @@ Insert todo to database and return object of inserted todo.
 
 -   **Data Params**
 
-    `{ "title": "Debug", "description": "Debug your code", "status": false, "due_date": "2020-02-03T06:40:04.112Z" }`
+    `{
+	"title": "Task 2"`
 
 -   **Success Response:**
 
     -   **Code:** 201 <br />
         **Content:**
 
-        `{ "data": [ { "id": 3, "title": "Debug", "description": "Debug your code", "status": false, "due_date": "2020-02-03T06:40:04.112Z", "createdAt": "2020-02-03T07:10:44.850Z", "updatedAt": "2020-02-03T07:10:44.850Z" } ] }`
+        `{
+        "data": {
+            "id": 26,
+            "title": "Task 2",
+            "UserId": 4,
+            "updatedAt": "2020-02-14T16:05:16.993Z",
+            "createdAt": "2020-02-14T16:05:16.993Z"
+        }
+        }`
 
 -   **Error Response:**
 
     -   **Code:** 400 BAD REQUEST <br />
-        **Content:** `{ "err" : "Please enter the title | description | status | due_date" }`
+        **Content:** `{ "err" : "Please enter the title" }`
 
 ## **UPDATE Todo**
 
-Update specific todo and return object of updated todo.
+Update specific Boarn and return object of updated Board.
 
 -   **URL**
 
-    /todos/:id
+    /board/:id
 
 -   **Method:**
 
-    `PUT`
+    `PATCH`
 
 -   **URL Params**
 
@@ -84,30 +106,38 @@ Update specific todo and return object of updated todo.
 
 -   **Data Params**
 
-    `{ "title": "Debug", "description": "Debug your code", "status": false, "due_date": "2020-02-03T06:40:04.112Z" }`
+    `{
+	    "title": "Task New"
+    }`
 
 -   **Success Response:**
 
     -   **Code:** 200 <br />
         **Content:**
 
-        `{ "data": [ { "id": 3, "title": "Debug", "description": "Debug your code", "status": false, "due_date": "2020-02-03T06:40:04.112Z", "createdAt": "2020-02-03T07:10:44.850Z", "updatedAt": "2020-02-03T07:10:44.850Z" } ] }`
+        `{
+        "data": {
+            "id": 22,
+            "title": "Task New",
+            "UserId": 3,
+            "createdAt": "2020-02-12T10:23:09.666Z",
+            "updatedAt": "2020-02-14T16:10:53.328Z"
+        }
+        }`
 
 -   **Error Response:**
 
     -   **Code:** 400 BAD REQUEST <br />
-        **Content:** `{ "err" : "Please enter the title | description | status | due_date }`
+        **Content:** `{ "err" : "Please enter the title }`
 
-    -   **Code:** 404 NOT FOUND <br />
-        **Content:** `{ "err" : "Err! Todo not found!" }`
 
-## **DELETE Todo**
+## **DELETE BOARD**
 
-Delete specific todo and return object of deleted todo.
+Delete specific board and return object of deleted board.
 
 -   **URL**
 
-    /todos/:id
+    /board/:id
 
 -   **Method:**
 
@@ -128,12 +158,12 @@ Delete specific todo and return object of deleted todo.
     -   **Code:** 200 <br />
         **Content:**
 
-        `{ "data": [ { "id": 3, "title": "Debug", "description": "Debug your code", "status": false, "due_date": "2020-02-03T06:40:04.112Z", "createdAt": "2020-02-03T07:10:44.850Z", "updatedAt": "2020-02-03T07:10:44.850Z" } ] }`
+        `{
+        "data": 1
+        }`
 
 -   **Error Response:**
 
     -   **Code:** 500 INTERNAL SERVER <br />
         **Content:** `{ err<object> }`
 
-    -   **Code:** 404 NOT FOUND <br />
-        **Content:** `{ "err" : "Err! Todo not found!" }`
