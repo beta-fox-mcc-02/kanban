@@ -3,6 +3,9 @@ const taskController = require("../controllers/taskController")
 const {
     authentication
 } = require("../middlewares/authentication")
+const {
+    authorization
+} = require("../middlewares/authorize")
 
 router.use(authentication)
 

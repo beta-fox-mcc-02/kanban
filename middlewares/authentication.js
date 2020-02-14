@@ -1,14 +1,17 @@
 const {
     User
 } = require("../models")
-const jwt = ("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 const private_key = "secret"
 
 module.exports = {
     authentication: (req, res, next) => {
         try {
-            const token = req.headers.token
+            console.log("MASUK  AUTH")
+            const token = req.headers.access_token
+            // console.log(token)
             let decoded = jwt.verify(token, private_key)
+            console.log(decoded, "ini decoded authentication")
             User.findOne({
                     where: {
                         id: decoded.data.id
@@ -29,9 +32,11 @@ module.exports = {
                     }
                 })
                 .catch(err => {
+                    console.log(err, 'error catch')
                     next(err)
                 })
         } catch (err) {
+            console.log(err, "error catch 2")
             next(err)
         }
     }

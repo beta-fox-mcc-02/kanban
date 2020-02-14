@@ -3,7 +3,7 @@ const {
 } = require("../models")
 
 module.exports = {
-    authorize = (req, res, next) => {
+    authorize: (req, res, next) => {
         const id = req.params.id
         Task.findOne({
                 where: {

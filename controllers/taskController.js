@@ -4,6 +4,7 @@ const {
 
 class TaskController {
     static findAll(req, res, next) {
+        console.log(req.UserId)
         Task.findAll({
                 where: {
                     UserId: req.UserId
@@ -21,14 +22,16 @@ class TaskController {
     }
 
     static create(req, res, next) {
+        // console.log('masuuukkk')
         const title = req.body.title
-        const category = req.body.category
+        const CategoryId = 1
         Task.create({
                 title: title,
                 UserId: req.UserId,
-                CategoryId: category
+                CategoryId: CategoryId
             })
             .then(data => {
+                // console.log(data)
                 res.status(201).json({
                     data,
                     msg: "Data created successfully"
@@ -75,6 +78,7 @@ class TaskController {
                 }
             })
             .then(data => {
+                // console.log("ketemu")
                 res.status(200).json({
                     data,
                     msg: "Data found"
@@ -88,7 +92,7 @@ class TaskController {
     static update(req, res, next) {
         const id = req.params.id
         const title = req.body.title
-        const category = req.body.category
+        const category = req.body.CategoryId
         Task.update({
                 title: title,
                 CategoryId: category,
