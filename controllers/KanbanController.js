@@ -12,6 +12,17 @@ class KanbanController {
       .catch(next)
   }
 
+  static findTaskById(req, res, next){
+    const { id } = req.params;
+    Kanban.findOne({
+      where: {id}
+    })
+      .then(kanban => {
+        res.status(200).json({data: kanban})
+      })
+      .catch(next)
+  }
+
   static findByCategory(req, res, next) {
     const { CategoryId } = req.params;
     const UserId = req.currentUserId;
