@@ -5,8 +5,8 @@ const authorized = require('../middlewares/authorized')
 
 router.use(authentication)
 
-router.get('/', findAll)
 router.post('/', create)
+router.get('/', findAll)
 router.put('/:id', authorized, update)
 router.delete('/:id', authorized, destroy)
 
