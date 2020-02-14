@@ -8,23 +8,23 @@ const errorHandler = (err, req, res, next) => {
   }
 
   if (err.name === 'SequelizeValidationError') {
-    status = 400
     errorObj.message = 'Bad Request'
+    errorObj.status = 400
     for (const er of err.errors) {
       errorObj.errors.push(er.message)
     }
     res.status(status).json(errorObj)
   } else if (err.name === 'SequelizeUniqueConstraintError') {
-    status = 400
     errorObj.message = 'Bad Request'
+    errorObj.status = 400
     for (const e of err.errors) {
       errorObj.errors.push(e.message)
     }
     res.status(status).json(errorObj)
   } else if (err.name === 'JsonWebTokenError') {
-    status = 400
     errorObj.message = err.name
     errorObj.errors.push(err.message)
+    errorObj.status = 400
     res.status(status).json(errorObj)
   } else {
     status = err.status || 500
