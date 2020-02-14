@@ -62,7 +62,8 @@ class TaskController {
     const id = +req.params.id
     const parameters = {
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+      category_id: req.body.category_id
     }
     Task.update(parameters, {
       where: {

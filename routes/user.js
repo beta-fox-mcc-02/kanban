@@ -4,6 +4,7 @@ const { isAuthenticated } = require('../middlewares')
 
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.post('/gLogin', UserController.googleLogin)
 
 router.use(isAuthenticated)
 router.get('/', UserController.findUser)
