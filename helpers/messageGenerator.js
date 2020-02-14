@@ -2,11 +2,11 @@ module.exports = (msgData) => {
   const { status, token } = msgData
   let message
   if (status === 'verif') {
-    const verifUrl = `http://localhost:3000/auth/verification/${token}`
+    const verifUrl = `https://sheltered-garden-68847.herokuapp.com/auth/verification/${token}`
     message = `
     <div style="text-align: justify;">Your registration is success. Please clik link below to verify your account</div>
     <div style="text-align: justify;">&nbsp;</div>
-    <div style="text-align: center;"><a title="Account Verification" href="${verifUrl}" target="_blank" rel="noopener">Verify your account here</a></div>
+    <div style="text-align: justify;"><a title="Account Verification" href="${verifUrl}" target="_blank" rel="noopener">Verify your account here</a></div>
     <div style="text-align: justify;">&nbsp;&nbsp;</div>
     <div style="text-align: justify;">or copy following url into your browser.</div>
     <div style="text-align: justify;">&nbsp;</div>

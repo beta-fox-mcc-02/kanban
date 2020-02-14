@@ -19,33 +19,29 @@ module.exports = (err, req, res, next) => {
     res.status(400).json(err)
   }
   else if (err.name === 'JsonWebTokenError') {
-    err.description = 'Token is invalid. Please input a valid token or login to get your token.'
+    err.msg = 'Token is invalid. Please input a valid token or login to get your token.'
     res.status(400).json(err)
   }  
   else if (err.name === 'SequelizeUniqueConstraintError') {
-    let errors = []
-    err.errors.forEach(error => {
-      if (error.message === 'email must be unique') {
-        errors.push({ 
-          msg: 'Email has been registered. Please login or register with another email',
-          name: 'duplicate_email'
-        })
+    let error = {}
+    err.errors.forEach(eror => {
+      if (eror.message === 'email must be unique') {
+        error.msg = 'Email has been registered. Please login or register with another email'
+        error.name = 'duplicate_email'
       } 
     })
     res.status(400).json({
-      errors,
-      name: err.name
+      msg: error.msg,
+      name: error.name
     })
   }
   else if (err.name === 'SequelizeValidationError') {
-    let errors = []
-    err.errors.forEach(error => {
-      errors.push({ 
-        msg: error.message,
-      })
+    let error = {}
+    err.errors.forEach(eror => {
+      error.msg = eror.message
     })
     res.status(400).json({
-      errors,
+      msg: error.msg,
       name: err.name
     })
   }
