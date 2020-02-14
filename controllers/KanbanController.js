@@ -30,22 +30,28 @@ class KanbanController {
   }
 
   static create(req, res, next) {
+    console.log(req.body);
     const { title, CategoryId } = req.body;
     const UserId = req.currentUserId;
     const dataKanban = { title, CategoryId, UserId }
-    Category.findOne({
-      where: { id: CategoryId }
-    })
+    Kanban.create(dataKanban)
       .then(data => {
-        if (data) {
-          return Kanban.create(dataKanban)
-        } else {
-          next({ status: 400, message: 'Category does not exist' })
-        }
+        res.status(200).json({ message: 'Success create data'})
       })
-      .then(data => {
-        res.status(200).json({ message: 'Success create data' });
-      })
+      .catch(next)
+    // Category.findOne({
+    //   where: { id: CategoryId }
+    // })
+    //   .then(data => {
+    //     if (data) {
+    //       return Kanban.create(dataKanban)
+    //     } else {
+    //       next({ status: 400, message: 'Category does not exist' })
+    //     }
+    //   })
+    //   .then(data => {
+    //     res.status(200).json({ message: 'Success create data' });
+    //   })
       .catch(next)
   }
 
