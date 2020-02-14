@@ -1,9 +1,11 @@
 const isAuthenticated = require('./isAuthenticated')
-const isAuthorizationed = require('./isAuthorizationed')
+const isTaskAuthorizationed = require('./isTaskAuthorizationed')
+const isCategoryAuthorizationed = require('./isCategoryAuthorized')
 const errorHandler = require('./errorHandler')
 
 module.exports = {
   isAuthenticated,
-  isAuthorizationed,
+  isTaskAuthorizationed,
+  isCategoryAuthorizationed,
   errorHandler
 }

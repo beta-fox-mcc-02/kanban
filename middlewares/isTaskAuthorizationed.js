@@ -1,6 +1,6 @@
 const { Task } = require('../models')
 
-const isAuthorizationed = (req, res, next) => {
+const isTaskAuthorizationed = (req, res, next) => {
   const id = +req.params.id
   const user_id = req.decoded
   Task.findOne({
@@ -32,4 +32,4 @@ const isAuthorizationed = (req, res, next) => {
     })
 }
 
-module.exports = isAuthorizationed
+module.exports = isTaskAuthorizationed

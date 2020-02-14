@@ -1,12 +1,12 @@
 const router = require('express').Router()
 const { TaskController } = require('../controllers')
-const { isAuthenticated, isAuthorizationed } = require('../middlewares')
+const { isAuthenticated, isTaskAuthorizationed } = require('../middlewares')
 
 router.use(isAuthenticated)
 router.post('/', TaskController.addTask)
 router.get('/category/:category_id', TaskController.getAllTask)
 
-router.use('/:id', isAuthorizationed)
+router.use('/:id', isTaskAuthorizationed)
 router.get('/:id', TaskController.getTask)
 router.put('/:id', TaskController.updateTask)
 router.delete('/:id', TaskController.deleteTask)

@@ -1,4 +1,5 @@
 const { Category, Task } = require('../models')
+const { Op } = require('sequelize')
 
 class CategoryController {
   static getCategories(req, res, next) {
@@ -31,6 +32,44 @@ class CategoryController {
         res.status(200).json({
           newCategory
         })
+      })
+      .catch(next)
+  }
+
+  static editCategory(req, res, next) {
+    const id = +req.params.id
+    const parameters = {
+      name: req.body.name,
+      user_id: req.decoded
+    }
+    Category.update(parameters, {
+      where: {
+        id
+      }, returning: true
+    })
+      .then(category => {
+        res.status(200).json(category)
+      })
+      .catch(next)
+  }
+
+  static findOneCategory(req, res, next) {
+    const id = +req.params.id
+    Category.findOne({
+      include: [Task],
+      where: {
+        [Op.and]: [
+          {
+            id
+          },
+          {
+            user_id: req.decoded
+          }
+        ]
+      }
+    })
+      .then(category => {
+        res.status(200).json(category)
       })
       .catch(next)
   }
