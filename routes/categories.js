@@ -3,7 +3,7 @@ const CategoryController = require('../controllers/CategoryController')
 const authentication = require('../middlewares/authentication')
 const authorization = require('../middlewares/authorization')
 
-// router.use(authentication)
+router.use(authentication)
 router.get('/', CategoryController.findAll)
 router.post('/', CategoryController.create)
 router.get('/:id', CategoryController.findOne)

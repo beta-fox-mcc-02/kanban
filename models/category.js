@@ -1,10 +1,17 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Category = sequelize.define('Category', {
+  const Model = sequelize.Sequelize.Model
+
+  class Category extends Model {
+    static associate(models) {
+      Category.hasMany(models.Task)
+    }     
+  }
+  Category.init({
     name: DataTypes.STRING
-  }, {});
-  Category.associate = function(models) {
-    // associations can be defined here
-  };
+  }, {
+    sequelize
+  })
+
   return Category;
 };

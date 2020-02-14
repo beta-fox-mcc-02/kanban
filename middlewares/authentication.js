@@ -14,10 +14,7 @@ module.exports = (req, res, next) => {
          .then(user => {
             if(user) {
                req.currentUserId = payload.id
-               res.status(200).json({
-                  token,
-                  msg : "success authentication"
-               })
+               next()
             } else {
                next(err)
             }

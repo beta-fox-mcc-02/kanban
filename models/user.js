@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 
   class User extends Model {
     static associate (models) {
-      
+      User.hasMany(models.Task)
     }
   }
   User.init({
@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks : {
       beforeCreate : (user, options) => {
+        console.log(user.password)
         user.password = encryptPass(user.password)
       }
     }

@@ -1,10 +1,17 @@
-const { Task } = require('../models')
+const { Task, Category } = require('../models')
 
 class TaskController {
-   static findAll(req, res) {
+   static findAll(req, res, next) {
+      let CategoryId = +req.params.categoryId
+      let UserId = +req.currentUserId
       //parameter not send
       //categoryId-find berdasarkan CategoryId
-      Task.findAll()
+      Task.findAll({
+         where : {
+            CategoryId,
+            UserId
+         }
+      })
          .then(data => {
             res.status(200).json({
                status : 200,
@@ -23,20 +30,24 @@ class TaskController {
    static findOne(req, res) {
       //receive CategoryId, task detail
       let id = +req.params.id
+      let UserId = req.currentUserId
       Task.findOne({
+         include: [Category],
          where : {
-            id
+            id,
+            UserId
          }
       })
          .then(task => {
-            console.log(task, 'findOne then')
+            // console.log(task, 'findOne then')
             res.status(200).json({
                status : 200,
+               task,
                msg : "success find one task"
             })
          })
          .catch(err => {
-            console.log(err, 'findOne catch')
+            // console.log(err, 'findOne catch')
             res.status(400).json({
                status : 400,
                msg : "fail find one task"
@@ -46,14 +57,16 @@ class TaskController {
 
    static create(req, res) {
       //CategoryId not defined
+      // console.log(req.body)
       let UserId = req.currentUserId
-      let { title, description } = req.body
+      let { title, description, CategoryId } = req.body
       let input = { title, description, CategoryId, UserId }
       Task.create(input)
          .then(task => {
-            console.log(task, 'create then')
+            // console.log(task, 'create then')
             res.status(201).json({
                status:201,
+               task,
                msg: 'success create task'
             })
          })
@@ -67,19 +80,19 @@ class TaskController {
    }
 
    static update(req, res) {
-      let UserId = req.currentUserId
-      let id = req.params.id
+      let id = +req.params.id
       let { title, description } = req.body
-      let input = { title, description, CategoryId, UserId }
+      let input = { title, description}
       Task.update(input, {
          where : {
             id 
-         }
+         },
+         returning : true
       })
          .then(task => {
             console.log(task, 'then update task')
-            res.status(201).json({
-               status : 201,
+            res.status(200).json({
+               status : 200,
                msg : 'sucess update task'
             })
          })

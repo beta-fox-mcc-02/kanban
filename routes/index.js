@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
 })
 
 router.use('/users', userRouter)
-router.use('/tasks', tasksRouter)
 router.use('/categories', categoryRouter)
+router.use('/tasks', tasksRouter)
 
 router.get('/*', (req, res) => {
    res.send('Not found')
