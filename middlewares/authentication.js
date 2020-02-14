@@ -3,6 +3,7 @@ const { User } = require('../models')
 
 module.exports = (req, res, next) => {
     try{
+        console.log(req.headers.access_token)
         let decoded = verifyToken(req.headers.access_token)
         User
             .findOne({

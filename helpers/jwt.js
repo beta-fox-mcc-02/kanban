@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const PRIVATKEY = "kitten"
+const PRIVATKEY = process.env.PRIVATKEY
 
 module.exports = {
     generateToken: (dataUser) => {
