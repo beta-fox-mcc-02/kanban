@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "123",
-    "database": "mkanban",
+    "database": "kanban-beta-fox",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operatorsAliases": 0
