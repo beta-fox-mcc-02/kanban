@@ -42,7 +42,7 @@ class TaskController {
         const data = {
             title: req.body.title,
             CategoryId: 1,
-            UserId: Number(req.body.UserId)
+            UserId: Number(req.user.id)
         }
         console.log(2, data);
         
@@ -90,20 +90,17 @@ class TaskController {
     }
     
     static changeTitle(req, res, next) {
-        const id = Number(req.params.id);
-        console.log(id);
-        console.log(req.body);
+        const { title } = req.body;
         
-        const data = {
-            title: req.body.title,
-        }
-console.log(data);
-
-        Task.update(data, { where: { id }, returning: true})
-            .then(result => {
-                if(result[0] > 0) {
+        Task.update({ title }, {
+            where: {
+                id : req.params.id
+            }
+        })
+            .then(task => {
+                if(task[0] > 0) {
                     res.status(200).json({
-                        data: result[0][1],
+                        data: task[0][1],
                         msg: 'Change title success'
                     })
                 } else {
@@ -114,18 +111,20 @@ console.log(data);
                     })
                 }
             })
-            .catch(next);
+            .catch( err => {
+                console.log(err);
+                next(err);   
+            });
     }
 
     static nextLevel(req, res, next) {
         const id = Number(req.params.id);
-        console.log(req.body);
         
         const data = {
             CategoryId: Number(req.body.CategoryId) + 1
         }
 
-        Task.update(data, { where: { id }, returning: true})
+        Task.update(data, { where: { id }})
             .then(result => {
                 if(result[0] > 0) {
                     res.status(200).json({
@@ -145,6 +144,7 @@ console.log(data);
 
     static delete(req, res, next) {
         const { id } = req.params;
+console.log(id);
 
         Task.destroy({ where: { id }})
             .then(data => {

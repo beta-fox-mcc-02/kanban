@@ -17,9 +17,12 @@ module.exports = function(req, res, next) {
 
             User.findByPk(req.user.id)
                 .then(data=>{
-                    console.log(99, data);
-                    
-                    if(data) next();
+                    if(data) {
+                        // console.log(data);
+                        
+                        // req.user.id = data.id;
+                        next();
+                    }
                     else {
                         next({
                             name: 401,
