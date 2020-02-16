@@ -4,10 +4,17 @@ const jwt =  require('../helper/jwt')
 
 class ControllerTask {
     static findAll(req,res,next){
-        console.log(req.currentId)
-        Task.findAll()
+        Task.findAll({
+        })
             .then(data => {
-                res.status(200).json(data)
+                let tamp= []
+                for(let el of data){
+                    if(el.UserId == req.currentId){
+                        tamp.push(el)
+                        console.log(el)
+                    }
+                }
+                res.status(200).json(tamp)
             })
             .catch(err =>{
                 console.log(err)
@@ -34,6 +41,7 @@ class ControllerTask {
                     return Task.update({
                         title : req.body.title,
                         UserId : req.currentId,
+                        Description : req.body.Description,
                         CategoryId : +req.body.CategoryId
                     },{
                         where : {
@@ -77,9 +85,9 @@ class ControllerTask {
         console.log(CateId)
         let input = {
             title : req.body.title,
-            Description : req.body.description,
             UserId : req.currentId,
-            CategoryId : CateId
+            CategoryId : CateId,
+            Description : req.body.description,
         }
         Task.create(input)
             .then(data => {

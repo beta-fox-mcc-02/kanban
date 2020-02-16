@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   Task.init({
     title: DataTypes.STRING,
     CategoryId: DataTypes.INTEGER,
-    UserId : DataTypes.INTEGER
+    UserId : DataTypes.INTEGER,
+    Description : DataTypes.STRING
   },{sequelize})
 
   return Task;
