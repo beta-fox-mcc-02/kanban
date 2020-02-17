@@ -34,6 +34,56 @@ https://young-retreat-16880.herokuapp.com/
     password : string    
 
 
+# LOGIN USER
+----
+    Find acces user to get access.
+
+* **URL**
+
+  http://localhost:3000/login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+
+   **Required:**
+ 
+   
+
+* **Data Params**
+ 
+    email : string   
+    password : string    
+
+
+# LOGIN USER use Google Sign
+----
+    Find acces user to get access.
+
+* **URL**
+
+  http://localhost:3000/googleSign
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+
+   **Required:**
+ 
+   
+
+* **Data Params**
+ 
+    email : string     
+
+
+***
 # CREATE with http status 201
 
 ## di Server
