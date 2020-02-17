@@ -5,7 +5,7 @@ const taskRouter = require('./taskRouter')
 const categoryRouter = require('./categoryRouter')
 
 router.get('/', (req, res) => {
-    res.send('WELCOME TO KANBAN APPS')
+    res.send('WELCOME TO KANBAN-IPUL APPS')
 })
 router.use(userRouter)
 router.use('/tasks', taskRouter)
