@@ -5,7 +5,7 @@ Nama database wajib: kanban-beta-fox
 
 ***Read Task***
 ----
-  Returns json data about all todo list.
+  Returns json data about all task list.
   
 * **URL**
 
@@ -52,7 +52,7 @@ Nama database wajib: kanban-beta-fox
 
 ***Insert Task***
 ----
-  Insert new todo list to json data.
+  Insert new task list to json data.
   
 * **URL**
 
@@ -112,7 +112,7 @@ Nama database wajib: kanban-beta-fox
 
 ***Update Task***
 ----
-  Update todo list in json data by id.
+  Update task list in json data by id.
   
 * **URL**
 
@@ -146,7 +146,7 @@ Nama database wajib: kanban-beta-fox
   **Content:** 
   ```javascript
     {
-      msg : 'todo Id ${id} successfuly updated'
+      msg : 'task Id ${id} successfuly updated'
     }
     ```
 
@@ -178,7 +178,7 @@ Nama database wajib: kanban-beta-fox
 
 ***Delete Task***
 ----
-  Delete todo list in json data by id.
+  Delete task list in json data by id.
   
 * **URL**
 
@@ -204,7 +204,7 @@ Nama database wajib: kanban-beta-fox
   **Content:** 
   ```javascript
     {
-      msg : 'todo Id ${id} successfuly deleted'
+      msg : 'task Id ${id} successfuly deleted'
     }
     ```
 * **Error Response:**
