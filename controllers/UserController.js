@@ -8,10 +8,11 @@ const { base64_encode } = require('../helpers/base64');
 
 class UserController {
     static gSignIn(req, res, next) {
-        console.log(0, req.headers);
+        console.log(1, req.body);
+        console.log(2, req);
+        
         
         let token = req.headers.token;
-console.log(token);
 
         client.verifyIdToken({
             idToken: token,

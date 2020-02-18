@@ -144,7 +144,6 @@ class TaskController {
 
     static delete(req, res, next) {
         const { id } = req.params;
-console.log(id);
 
         Task.destroy({ where: { id }})
             .then(data => {
