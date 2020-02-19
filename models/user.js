@@ -35,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'email required'
         },
+        notEmpty: {
+          args: true,
+          msg: 'email required'
+        },
         isEmail: {
           args: true,
           msg: 'email format required'
@@ -50,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
+          args: true,
+          msg: 'password required'
+        },
+        notEmpty: {
           args: true,
           msg: 'password required'
         },
