@@ -5,10 +5,10 @@ class TaskController {
         Task.create({
             title: req.body.title,
             description: req.body.description,
-            CategoryId: 1,
             OrganizationId: req.params.orgId
         })
             .then(task => {
+                console.log('ayy')
                 return TaskUser.create({
                     TaskId: task.id,
                     UserId: req.decoded.id

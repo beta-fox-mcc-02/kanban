@@ -196,7 +196,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
   * **Body:** <br />
@@ -260,7 +260,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
 * **Success Response:**
@@ -371,7 +371,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
 * **Success Response:**
@@ -463,7 +463,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
 * **Success Response:**
@@ -524,7 +524,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
   * **Body:** <br />
@@ -584,7 +584,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
 * **Success Response:**
@@ -644,7 +644,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
   * **Body:** <br />
@@ -713,7 +713,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
 * **Success Response:**
@@ -807,7 +807,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
 * **Success Response:**
@@ -873,7 +873,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
 * **Success Response:**
@@ -930,7 +930,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
   * **Body:** <br />
@@ -1004,7 +1004,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
   * **Body:** <br />
@@ -1072,7 +1072,7 @@ Nama database wajib: kanban-beta-fox
 
   * **Header:** <br />
     ```
-    access_token:integer(user's token)
+    access_token:string(user's token)
     ```
 
 * **Success Response:**

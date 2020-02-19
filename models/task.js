@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     CategoryId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
       validate: {
         isIn: {
           args: [["1","2","3","4"]],
