@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'task title required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'task title required'
         }
       }
     },

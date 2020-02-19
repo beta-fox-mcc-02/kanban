@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'organization name required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'organization name required'
         }
       }
     }
