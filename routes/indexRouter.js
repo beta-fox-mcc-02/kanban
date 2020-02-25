@@ -5,6 +5,6 @@ const { authentification } = require('../middlewares/secureUserValidator.js')
 
 router.use('/user', userRouter)
 
-router.use('/task', authentification, taskRouter)
+router.use('/tasks', authentification, taskRouter)
 
 module.exports = router

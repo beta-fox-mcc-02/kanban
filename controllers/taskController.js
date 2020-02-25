@@ -7,6 +7,9 @@ class TaskController{
             include: {
                 model: Task,
                 include: User
+            },
+            where: {
+                UserId: req.currentUserId
             }
         })
         .then(data => {
