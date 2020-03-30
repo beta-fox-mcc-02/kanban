@@ -6,6 +6,7 @@ class TaskController {
       let UserId = +req.currentUserId
       //parameter not send
       //categoryId-find berdasarkan CategoryId
+      // console.log('masuk iniiiiiiiiiii')
       Task.findAll({
          where : {
             CategoryId,
@@ -31,6 +32,7 @@ class TaskController {
       //receive CategoryId, task detail
       let id = +req.params.id
       let UserId = req.currentUserId
+      // console.log(id, UserId, 'test masuk siiiiiiiiiiiiiiiiiiiiiini')
       Task.findOne({
          include: [Category],
          where : {
@@ -80,7 +82,7 @@ class TaskController {
    }
 
    static update(req, res) {
-      console.log('update')
+      // console.log('update')
       let id = +req.params.id
       let input
       if(req.body.CategoryId) {
@@ -90,7 +92,7 @@ class TaskController {
          let { title, description } = req.body
          input = { title, description}
       }
-      console.log(input)
+      // console.log(input)
       Task.update(input, {
          where : {
             id 

@@ -5,10 +5,12 @@ module.exports = (sequelize, DataTypes) => {
   class Category extends Model {
     static associate(models) {
       Category.hasMany(models.Task)
+      Category.belongsTo(models.User)
     }     
   }
   Category.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    UserId: DataTypes.INTEGER
   }, {
     sequelize
   })

@@ -2,11 +2,13 @@ const { Category, Task } = require('../models')
 
 class CategoryController {
    static findAll(req, res, next) {
-      console.log('masuk controller')
+      // console.log('masuk controller')
       const UserId = +req.currentUserId
-      console.log(UserId)
+      // console.log(UserId)
       Category.findAll({
-         include: [Task]
+         include: [Task],
+         where: { UserId },
+         order: [['id', 'ASC']]
       }) 
          .then(categories => {
             // console.log(categories)
@@ -69,6 +71,7 @@ class CategoryController {
    }
 
    static create(req, res, next) {
+      console.log(req.currentUserId)
       let input = { 
          name: req.body.name,
          UserId : +req.currentUserId
@@ -77,7 +80,8 @@ class CategoryController {
          .then(data => {
             // console.log(data, 'success create category')
             res.status(200).json({
-               name: data.name
+               name: data.name,
+               msg: 'success create category'
             })
          })
          .catch(err => {
@@ -122,7 +126,7 @@ class CategoryController {
          }
       })
          .then(data => {
-            console.log(data)
+            // console.log(data)
             Category.destroy({
                where : {
                   id
@@ -144,7 +148,10 @@ class CategoryController {
                })
          })
          .catch(err => {
-            console.log(err, 'category controller delete catch')
+            // console.log(err, 'category controller delete catch')
+            res.status(400).json({
+              msg: 'fail delete category'
+            })
          })
 
    }

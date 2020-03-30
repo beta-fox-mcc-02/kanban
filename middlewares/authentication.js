@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
       })
          .then(user => {
             if(user) {
+              console.log('masuk auth')
                req.currentUserId = payload.id
                next()
             } else {

@@ -6,7 +6,7 @@ const client = new OAuth2Client(process.env.CLIENT_ID)
 
 class UserController {
    static register (req, res) {
-      console.log('masuk register controller')
+      // console.log('masuk register controller')
       let { name, email, password } = req.body
       let input = { name, email, password }
       // console.log(input)
