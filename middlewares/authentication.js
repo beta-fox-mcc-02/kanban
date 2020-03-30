@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
                req.currentUserId = payload.id
                next()
             } else {
-               next(err)
+               next({next: 'error'})
             }
          })
          .catch(err => {
