@@ -1,4 +1,5 @@
 const { Task, Category } = require('../models')
+const { Op } = require('sequelize')
 
 class TaskController {
    static findAll(req, res, next) {
@@ -7,13 +8,21 @@ class TaskController {
       //parameter not send
       //categoryId-find berdasarkan CategoryId
       // console.log('masuk iniiiiiiiiiii')
+      // console.log(CategoryId, UserId, '========================')
       Task.findAll({
          where : {
-            CategoryId,
-            UserId
+            [Op.and]: [
+               {
+                  CategoryId                  
+               },
+               {
+                  UserId
+               }
+            ]
          }
       })
          .then(data => {
+            // console.log(data, '=============data============')
             res.status(200).json({
                status : 200,
                data,
@@ -100,7 +109,7 @@ class TaskController {
          returning : true
       })
          .then(task => {
-            console.log(task[0], 'then update task')
+            console.log(task[1], 'then update task')
             res.status(200).json({
                status : 200,
                msg : 'sucess update task'

@@ -11,25 +11,9 @@ class CategoryController {
          order: [['id', 'ASC']]
       }) 
          .then(categories => {
-            // console.log(categories)
+            console.log(categories)
             categories = categories.sort((a, b) => a.CategoryId - b.CategoryId)
-            // console.log(categories)
-            // let start = categories[0].id
-            // let end = categories[categories.length-1].id
-            // console.log(categories[0].Tasks)
-            // console.log(categories[categories.length-1].id, '----------------')
-            // console.log(categories, 'findAll Category then')
-            // let newCategories = []
-            // categories.forEach(cat => {
-            //    // console.log(cat)
-            //    cat.Tasks.filter(el => {
-            //       // console.log(el)
-            //       if(el.UserId === UserId) {
-            //          newCategories.push(el)
-            //       }
-            //    })
-            // })
-
+            
             res.status(200).json({
                status : 200,
                categories,

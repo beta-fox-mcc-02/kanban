@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "98765",
+    "password": "postgres",
     "database": "kanban-beta-fox",
     "host": "127.0.0.1",
     "dialect": "postgres"
