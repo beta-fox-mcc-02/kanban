@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -9,9 +9,10 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    return queryInterface.addConstraint('Users', ['email'], {
-      type: 'unique',
-      name: 'custom_unique_constraint_email'
+    return queryInterface.addConstraint("Users", {
+      type: "unique",
+      fields: ["email"],
+      name: "custom_unique_constraint_email",
     });
   },
 
@@ -23,6 +24,9 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-    return queryInterface.removeConstraint('Users', 'custom_unique_constraint_email');
-  }
+    return queryInterface.removeConstraint(
+      "Users",
+      "custom_unique_constraint_email"
+    );
+  },
 };
